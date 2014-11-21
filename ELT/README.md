@@ -1,62 +1,67 @@
-#
-# The idea is, to have an empty (new) TMS for ETL purposes
-# With those two packages, you will get
-#   git (version 2.1.2)
-#   subversion (version 1.8.10)
-#   SLJM (version 2.12)
-#   GCFR (ETL part) (version 1.1.1 including patch 20140703)
-# installed.
-# The Linux Environment (folder separation for Develop, Test, Production, ...)
-# will be set up. Run "setup.sh" for every Environment (free naming)
-# Unix groups and base environment for SLJM will be created (as well as /etc/skel)
-#
-# The packages are not supposed to be installed on TPA nodes.
-# They install new software and libraries (under /usr/local), but one cannot
-# guarantee, that nothing happens!
-#
-# Installation procedure:
+Idea
+====
+The idea is, to have an empty (new) TMS for ETL purposes
+With those two packages, you will get
+* git (version 2.1.2)
+* subversion (version 1.8.10)
+* SLJM (version 2.12)
+* GCFR (ETL part) (version 1.1.1 including patch 20140703)
+installed.
+The Linux Environment (folder separation for Develop, Test, Production, ...)
+will be set up. Run "setup.sh" for every Environment (free naming)
+Unix groups and base environment for SLJM will be created (as well as /etc/skel)
 
- 1. Copy *.tar.gz to the root user of your Linux Box.
- 2. Extract them via "tar zxvf <enter_file_name_here"
- 3. change to the new created subfolder:
-    3.1. Install_TD_Developers_Package_SLES11SP1
-    3.2. run "./install.sh"
-    3.3. if everything went well, continue. If not, check and/or contact Support
-    3.4. go back one folder level
- 4. change to the new created subfolder:
-    4.1. Install_Linux_Environment_SLES11SP1
-    4.2. run "./setup.sh" (answer some questions)
-    4.3. if everything went well, continue. If not, check and/or contact Support
- 5. You are finished, now!
- 6. Leave the folders if you like (at least Install_Linux_Environment_SLES11SP1)
-    You can easily create new Environments if required
- 7. An SLJM test Job has created: "Test_Job"
- 8. Create users for this environment (optional)
-    eg: useradd -c "Testuser" -m -d /home/testuser -g <The_priviously_created_environment> testuser
-    This user should be able to run this test job right now!
+The packages are not supposed to be installed on TPA nodes.
+They install new software and libraries (under /usr/local), but one cannot
+guarantee, that nothing happens!
 
-Attention:
-When you install package Install_TD_Developers_Package_SLES11SP1, one of the software components asks for user
-action. But interestingly, it doesn't wait. At some time, it looks like, the installation is hanging.
-Just hit ENTER to continue with the installation.
-
-Support:
-    Andreas Wenzel <andreas.wenzel@teradata.com>
-    Ask the real asset owners (SLJM and GCFR) for more (documentation, training, ...)
-
-Bugs:
-    If you find any bugs or room for enhancements, please don't hesitate to contact Support!
-
-Additional:
-    Documentation to any application delivered or installed by this package is not part
-    of this distribution. If it's not included in a sub-package itself, you have to get
-    it on your own via asset repository for example:
-        https://teradatanet.teradata.com/redir.html?assetId=KA67919
-        https://teradatanet.teradata.com/redir.html?assetId=KA66947
-
+Additional
+==========
+Documentation to any application delivered or installed by this package is not part of this distribution. If it's not included in a sub-package itself, you have to get it on your own via asset repository for example
+* KA67919
+* KA66947
 
 Install_Linux_Environment_SLES11SP1
 ===================================
+If you are an Teradata Employee, then you know how to get hands on those packages:
+* SLJM
+* GCFR
+
+If you don't know, what SLJM or GCFR is, then you don't need that package.
 
 Install_TD_Developers_Package_SLES11SP1
 =======================================
+The main goal for this package is the installation of this packages:
+* git (version 2.1.2)
+* subversion (version 1.8.10)
+
+As well, there are some packages included, which are required by SLJM or GCFR!
+
+You need to have an Account at Novel, to be able to download those official RPMs for SLES11SP1:
+* libncurses6-5.6-90.55.x86_64.rpm
+* ncurses-devel-5.6-90.55.x86_64.rpm
+* perl-XML-NamespaceSupport-1.09-1.22.x86_64.rpm
+* perl-XML-Parser-2.36-1.18.x86_64.rpm
+* perl-XML-SAX-0.96-2.7.x86_64.rpm
+* perl-XML-Simple-2.18-1.15.x86_64.rpm
+* tack-5.6-90.55.x86_64.rpm
+
+The following packages are available from free download:
+* apr-1.5.1.tar.bz2 (http://artfiles.org/apache.org//apr/apr-1.5.1.tar.bz2)
+* apr-util-1.5.3.tar.bz2 (https://apr.apache.org/download.cgi)
+* curl-7.38.0.tar.bz2 (http://curl.haxx.se/download.html)
+* DBD-ODBC-1.50.tar.gz (https://metacpan.org/pod/DBD::ODBC)
+* DBI-1.631.tar.gz (https://metacpan.org/pod/DBI)
+* ExtUtils-MakeMaker-6.98.tar.gz (https://metacpan.org/pod/ExtUtils::MakeMaker)
+* git-2.1.2.tar.gz (https://www.kernel.org/pub/software/scm/git/)
+* openssl-1.0.1i.tar.gz (https://www.openssl.org/source/)
+* scons-local-2.3.3.tar.gz (http://www.scons.org/download.php)
+* serf-1.3.7.tar.bz2 (http://www.linuxfromscratch.org/blfs/view/svn/basicnet/serf.html)
+* sqlite-amalgamation-3080600.zip (http://www.sqlite.org/download.html)
+* subversion-1.8.10.tar.bz2 (https://subversion.apache.org/download/)
+* Test-Simple-1.001006.tar.gz (http://search.cpan.org/dist/Test-Simple/lib/Test/Builder.pm)
+
+As of writing this readme, I've seen that many packages are outdated.
+I've tested with the versions mentioned here. I will try, to update them to the latest releases.
+But it will take some time. If anyone can provide me with an pull request with newer version,
+this would be highly appreciated.

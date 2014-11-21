@@ -1,6 +1,8 @@
 --
 -- Select table information and column information (for import into Excel)
 -- change WHERE condition of databasename
+-- The output format is for my Excel document to document the physical
+-- table definition in the database
 --
 
 select trim(t01.TableName) TableName

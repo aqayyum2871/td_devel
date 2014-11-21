@@ -1,0 +1,156 @@
+#!/bin/bash
+
+#
+# Three mandadtory parameters:
+#   1 = JobId from GCFR
+#   2 = Stream Key
+#   3 = Process Name
+#       If it could be found as file in ${GCFR_GLOBAL_XML_PATH}/Process Name.xml,
+#       the argument three is ignored, and the XML file is used
+#
+
+Err() {
+    echo "$*" >&2
+    exit 1
+}
+
+Msg() {
+    echo "$*" >&2
+}
+
+#
+# check environment
+#
+[ -n "$ETC" ] || Err "*** environment no set ***"
+
+if [ -z $1 ]
+then
+    Err "*** missing action for GCFR ***"
+fi
+
+if [[ $1 = "Stream_BusDate_Start" ||            \
+      $1 = "Stream_Start" ||                    \
+      $1 = "Stream_End" ||                      \
+      $1 = "Stream_BusDate_End" ||              \
+      $1 = "StreamSpecBD_Start" ||              \
+      $1 = "Register_Data_Set_Availability" ||  \
+      $1 = "Register_Data_Set_Loaded" ||        \
+      $1 = "TPT_Load" ||                        \
+      $1 = "TPT_Load_CLOB" ||                   \
+      $1 = "Bkey_PP" ||                         \
+      $1 = "Bmap_PP" ||                         \
+      $1 = "Tfm_Full_Apply" ||                  \
+      $1 = "Tfm_Delta_Apply" ||                 \
+      $1 = "Tfm_Insert_Append" ||               \
+      $1 = "TPT_Export" ||                      \
+      $1 = "TPT_Export_CLOB"                    \
+   ]]
+then
+    JOB="$1"
+else
+    Err "*** Unknown Action for GCFR given ***"
+fi
+
+if [ -z $2 ]
+then
+    Err "*** Missing Stream Key ***"
+else
+    STREAM="$2"
+fi
+
+if [[ $1 = "Register_Data_Set_Availability" ||  \
+      $1 = "Register_Data_Set_Loaded" ||        \
+      $1 = "TPT_Load" ||                        \
+      $1 = "TPT_Load_CLOB" ||                   \
+      $1 = "Bkey_PP" ||                         \
+      $1 = "Bmap_PP" ||                         \
+      $1 = "Tfm_Full_Apply" ||                  \
+      $1 = "Tfm_Delta_Apply" ||                 \
+      $1 = "Tfm_Insert_Append" ||               \
+      $1 = "TPT_Export" ||                      \
+      $1 = "TPT_Export_CLOB"                    \
+   ]]
+then
+    if [ -z $3 ]
+    then
+        Err "*** missing detailed action for GCFR ***"
+    else
+        ACTION="$3"
+    fi
+
+    shift 3
+else
+    shift 2
+fi
+
+#
+# Check environment to determine, if the given third parameter is a XML file or a process name
+#
+if [ -z ${GCFR_GLOBAL_XML_PATH} ]
+then
+    Err "*** Environment variable GCFR_GLOBAL_XML_PATH not set! ***"
+fi
+
+#
+# Build the command line for GCFR_Standard_Processes.pl
+#
+COMMAND="-job GCFR_${JOB}"
+
+if [ -e "${GCFR_GLOBAL_XML_PATH}/${ACTION}.xml" ]
+then
+    COMMAND="${COMMAND} -xml ${GCFR_GLOBAL_XML_PATH}/${ACTION}.xml"
+    id="GCFR_${JOB}.${ACTION}"
+else
+    if [[ ${JOB} = "Stream_BusDate_Start" ||            \
+          ${JOB} = "Stream_Start" ||                    \
+          ${JOB} = "Stream_End" ||                      \
+          ${JOB} = "Stream_BusDate_End" ||              \
+          ${JOB} = "StreamSpecBD_Start"                 \
+       ]]
+    then
+        COMMAND="${COMMAND} -stream ${STREAM}"
+        id="GCFR_${JOB}.${STREAM}"
+    else
+        COMMAND="${COMMAND} -stream ${STREAM} -process ${ACTION}"
+        id="GCFR_${JOB}.${STREAM}.${ACTION}"
+    fi
+fi
+
+out=${TMPDIR}/${id}.out
+out1=${TMPDIR}/${id}.out1
+out2=${TMPDIR}/${id}.out2
+
+#
+# save old output files
+#
+[ -f ${out1} ] && mv ${out1} ${out2}
+[ -f ${out} ]  && mv ${out}  ${out1}
+
+if [[ -n ${WORK} && -d ${WORK} ]]
+then
+    cd ${WORK}
+else
+    cd ${TMPDIR}
+fi
+
+
+#
+# Execute the GCFR perl components here
+#
+echo "GCFR_Standard_Processes.pl ${COMMAND} $@"
+GCFR_Standard_Processes.pl ${COMMAND} "$@" >${out} 2>&1
+ec=$?
+#
+# Execute the GCFR perl components here
+#
+
+Msg "*** GCFR exit-code $ec ***"
+
+if [[ ${ec} -gt 0 && ${ec} -ne 126 ]]
+then
+    tail -10 ${out}
+    Msg "*** GCFR failed, exit code: $ec ***"
+    exit ${ec}
+fi
+
+exit ${ec}

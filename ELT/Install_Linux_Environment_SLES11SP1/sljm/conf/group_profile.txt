@@ -1,0 +1,13 @@
+umask 006
+PATH=${DWH_DIR}/${GROUP}/app/bin:${PATH}
+export PATH
+
+LD_LIBRARY_PATH=$LD_LIBRARY_PATH:INST_ODBC_LIB_PATH
+
+if [ -z ${PERL5LIB} ]
+then
+    PERL5LIB=${DWH_DIR}/${GROUP}/app/bin
+else
+    PERL5LIB=${DWH_DIR}/${GROUP}/app/bin:${PERL5LIB}
+fi
+export PERL5LIB

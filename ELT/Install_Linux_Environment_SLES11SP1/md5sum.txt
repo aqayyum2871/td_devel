@@ -1,0 +1,4 @@
+3fb920dd5ca26e56e03a4b7aa556c2c7  GCFR_Release_1.1.1_patch_20140703.zip
+9aa9d10ce560f96b664c6002587a3596  GCFR_V1.1.1_ETL_Work_20140512.zip
+180cf943f99f5a5cb62e5c40862c6b0c  setup.sh
+5765426383d11ffa0728ce2625dc504d  sljm_v2.12.tar.gz

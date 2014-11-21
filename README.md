@@ -21,3 +21,15 @@ The packages are not supposed to be installed on TPA nodes.
 They install new software and libraries (under /usr/local).
 
 I'm not providing software packages here. You need to get them on your own.
+
+oracle.sql
+==========
+SQLs to execute on Oracle Databases.
+
+teradata.sql
+============
+SQLs to execute on Teradata Databases.
+
+tools.pl
+========
+Some small helpfull perl programs.

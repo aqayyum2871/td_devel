@@ -15,17 +15,11 @@ The packages are not supposed to be installed on TPA nodes.
 They install new software and libraries (under /usr/local), but one cannot
 guarantee, that nothing happens!
 
-Additional
-==========
-Documentation to any application delivered or installed by this package is not part of this distribution. If it's not included in a sub-package itself, you have to get it on your own via asset repository for example
-* KA67919
-* KA66947
-
 Install_Linux_Environment_SLES11SP1
 ===================================
 If you are an Teradata Employee, then you know how to get hands on those packages:
-* SLJM
-* GCFR
+* SLJM (AssetID: KA66947)
+* GCFR (AssetID: KA67919)
 
 If you don't know, what SLJM or GCFR is, then you don't need that package.
 

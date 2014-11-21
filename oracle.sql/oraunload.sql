@@ -1,49 +1,33 @@
--- Ausgeben einer Tabelle auf ein Flatfile (delemitted) damit es in z. B. Excel geladen werden kann
--- Das Trennzeichen kann hier frei definiert werden.
--- Es werden mit einem einmaligen Aufruf einige Scripts produziert, welche dann für den Unload
--- bzw. Load herangezogen werden können/sollten.
+-- Unload an Oracle table to flat file (delimitted)
+-- Field delimitter can be chosen
 
 -- (c) 1997-2014 by Teradata GesmbH
--- Das Anpassen an das gegebene Environment, und die Funktionserweiterung ist dem Lizenznehmer erlaubt.
--- Es wird keine Garantie für fehlerhafte Daten übernommen.
 
--- Aufruf:
--- Argument 1 ist der Tabellenowner (case-insensitiv)
--- Argument 2 ist der Tabellenname (case-insensitiv), nicht View und nicht Synonym
--- Argument 3 ist Kennzeichen für Datumsfelder (DT=Datum+Uhrzeit, D=nur Datum)
--- Argument 4 ist der Tabellenname oder Variablenname der Zieltabelle
--- Erweiterung von Datenfile ist 'lst', von Data-Definition 'ctl', von Parameterfile 'par'
+-- Execution (from SQL*plus):
+-- Argument 1 = Tablenowner (case-insensitiv)
+-- Argument 2 = Tablename (case-insensitiv), no View or Synonyms allowed
+-- Argument 3 = define date columns (DT=unload date and time, D=unload date portion only)
+-- Argument 4 = Target tablename (to load into)
 
-
--- Mit zwei dieser Files + Datenfile kann über 'sqlldr username/passwd parfile=*.par' ein Import stattfinden.
--- Es müssen eventuell alle Indizes gelöscht, oder im .par-File der Eintrag 'direct=true' entfernt
--- werden.
--- Für Teradata kann das *.fld File zum Fastload herangezogen werden. Dieses muss allerdings vorher
--- noch geringfügig angepasst werden. Ebenfalls wird ein CREATE TABLE darin erstellt.
-
--- ACHTUNG !!! ACHTUNG !!! ACHTUNG !!! ACHTUNG !!! ACHTUNG !!! ACHTUNG !!! ACHTUNG
--- In sqlplus dürfen nicht mehr als eine bestimmte Anzahl an Bytes konkateniert werden.
--- Sollte diese Grenze überschritten werden, dann stürzt der Unload ab.
--- In Tests ist eine Grenze von 2000 Byte aufgekommen. Doch dies ist zu verifizieren.
--- ACHTUNG !!! ACHTUNG !!! ACHTUNG !!! ACHTUNG !!! ACHTUNG !!! ACHTUNG !!! ACHTUNG
+-- This version cannot process unicode character set
 
 -- #############################################################################
--- Dieses Zeichen wird als Feldtrenner für das Unloadfile benutzt (CSV)
+-- Delimiter for fields (CSV)
 undef DELIMI
 define DELIMI="	"
 
--- Wenn das obere Zeichen innerhalb eines Feldes vorkommt, wird es auf dieses Zeichen ersetzt
+-- If the DELIMI is part of a data content, the DELIMI will be changed to DELIMI2
 undef DELIMI2
 define DELIMI2=|
--- Diese beiden Zeichen müssen unterschiedlich sein, sonst könnte der Import Probleme machen
+-- DELIMI2 must be different from DELIMI
 -- #############################################################################
 
--- In Characterfelder dürfen keine Zeilentrenner ausgegeben werden. Ersetze sie auf dieses Zeichen
+-- New lines in data will be replace with this character
 undef CRDELIMI
 define CRDELIMI=°
 
 --
--- Beginne hier mit grundlegenden Definitionen
+-- Standard definitions
 --
 
 set feed off verify off pause off arraysize 1 num 2
@@ -74,7 +58,7 @@ select decode(upper('&&3'),'DT','YYYYMMDDHH24MISS','YYYYMMDD') DAT_FOR,
 from dual;
 
 --
--- Starte hier die Generierung des Oracle-SQL*Loader-Parameter-Files
+-- Generation of Oracle-SQL*Loader-Parameter-File
 --
 
 spool &1-&2..par
@@ -89,7 +73,7 @@ prompt direct=true
 spool off
 
 --
--- Starte hier die Generierung des Oracle-SQL*Loader-Control-Files
+-- Generation of Oracle-SQL*Loader-Control-File
 --
 
 spool &1-&2..ctl
@@ -150,7 +134,7 @@ select ')' from dual;
 spool off
 
 --
--- Starte hier die Generierung des Teradata-Fastload-Files
+-- Generation of Teradata-Fastload-File
 --
 
 spool &1-&2..fld
@@ -326,7 +310,7 @@ select 'logoff;' from dual;
 spool off
 
 --
--- Starte hier die Generierung des SQL-Files zum Starten des Unloads
+-- Generation of SQL-File for the Unload
 --
 
 spool &1-&2..sql

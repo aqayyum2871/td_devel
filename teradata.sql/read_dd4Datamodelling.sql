@@ -1,3 +1,8 @@
+--
+-- Select table information and column information (for import into Excel)
+-- change WHERE condition of databasename
+--
+
 select trim(t01.TableName) TableName
 	,case when t01.CheckOpt = 'N' then 'SET' when t01.CheckOpt = 'Y' then 'MULTISET' end TableType
 	,case when t01.Commentstring is null then '' else trim(t01.CommentString) end CommentString

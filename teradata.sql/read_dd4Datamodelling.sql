@@ -14,7 +14,7 @@ from dbc.tables t01
 left join (select databasename, tablename, IndexName from dbc.indices where indextype = 'P' group by databasename, tablename, IndexName) t02
 on t01.databasename = t02.databasename
 and t01.tablename = t02.tablename
-where t01.databasename = 'STG_CDE_01';
+where t01.databasename = <DATABASE_NAME>;
 
 -- Does not support PPI at the moment
 -- Still some datatypes missing
@@ -58,5 +58,6 @@ on t01.databasename = t02.databasename
 and t01.tablename = t02.tablename
 and t02.IndexType = 'P'
 and t02.columnname = t03.columnname
-where t01.databasename = 'STG_CDE_01'
-order by t01.TableName, t03.ColumnId;
+where t01.databasename = <DATABASE_NAME>
+order by t01.TableName, t03.ColumnId
+;

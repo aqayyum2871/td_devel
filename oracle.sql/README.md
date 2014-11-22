@@ -1,3 +1,10 @@
+gen_get_ora_time_in_date_list.sql
+=================================
+Check DATE columns, if they contain time portion on Oracle.
+This is done by counting distinct time value of each column.
+The count of 1 means, that all rows have the same time value.
+What is usually 00:00:00 (no time included) but is not guaranteed.
+
 oraunload.sql
 =============
 Generates unload scripts for Oracle tables. Very simple to execute with SQL*Plus.

@@ -14,3 +14,7 @@ from FILE
 group by COMPLETE_ROW_FROM_FILE
 order by COMPLETE_ROW_FROM_FILE;
 ```
+
+csv_check.pl
+============
+Analyze simple csv file delimitted by pipe (|) and show some statistics per column

@@ -33,7 +33,7 @@ Use this to mass process the tables based on the available TPT scripts.
 
 load_parallel.sh
 ================
-Tool to run the tables in parallel by a give degree of parallelism.
+Tool to run the tables in parallel by a given degree of parallelism.
 
 Because it can run for a very long time, "commands" to pause or abort the
 process by manually creating certain files is possible.

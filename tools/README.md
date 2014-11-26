@@ -3,7 +3,7 @@ analyze_datafile.pl
 Provided is a delimited flat file. This tool analysis the flat file, a proposes the best possible data format for each column, based on the content.
 It requires some perl modules for reading CSV files. As well as some initial knowledge of the file format (eg. field delimiter).
 
-This is a very rough tool. The csvkit 
+This is a very rough tool. The csvkit from onyxfish on github.com can do way more.
 
 count.pl
 ========

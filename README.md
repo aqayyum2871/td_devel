@@ -30,6 +30,6 @@ teradata.sql
 ============
 SQLs to execute on Teradata Databases.
 
-tools.pl
-========
-Some small helpfull perl programs.
+tools
+=====
+Some small helpfull tools.

@@ -1,6 +1,5 @@
 td_devel
 ========
-
 Helpful stuff for Teradata Developers
 
 ETL
@@ -22,14 +21,18 @@ They install new software and libraries (under /usr/local).
 
 I'm not providing software packages here. You need to get them on your own.
 
-oracle.sql
-==========
-SQLs to execute on Oracle Databases.
+INMOD
+=====
+INMODs for TTU.
 
-teradata.sql
-============
-SQLs to execute on Teradata Databases.
+oracle
+======
+Tools to run against Oracle Databases.
+
+teradata
+========
+Tools to run against Teradata Databases.
 
 tools
 =====
-Some small helpfull tools.
+Some other small helpful tools with no database involvement.

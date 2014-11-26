@@ -5,6 +5,20 @@ This is done by counting distinct time value of each column.
 The count of 1 means, that all rows have the same time value.
 What is usually 00:00:00 (no time included) but is not guaranteed.
 
+oracle_analyze_date.sql
+=======================
+Used by oracle_analyze_date.pl
+
+oracle_analyze_date.pl
+======================
+Analyze every Oracle table in a given schema if the date columns contain time information.
+The result is written to a csv file.
+
+Because it can run for a very long time, "commands" to pause or abort the
+process by manually creating certain files is possible.
+
+The file oracle_analyze_date.sql is required!
+
 oraunload.sql
 =============
 Generates unload scripts for Oracle tables. Very simple to execute with SQL*Plus.

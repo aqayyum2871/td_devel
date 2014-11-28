@@ -38,6 +38,12 @@ Tool to run the tables in parallel by a given degree of parallelism.
 Because it can run for a very long time, "commands" to pause or abort the
 process by manually creating certain files is possible.
 
+MM_Element_Import_Structure.sql
+===============================
+SQL to retrieve column information in format to import it to Teradata Mapping Manager.
+
+Mapping Manager does not import it! And I don't know why. Grrr
+
 read_dd4Datamodelling.sql
 =========================
 A while ago, I've created an Excel Document, to generate Teradata DDLs for the creation of tables and views.

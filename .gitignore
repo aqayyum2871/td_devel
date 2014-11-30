@@ -1,2 +1,6 @@
+getcols
+testfile
 tptbinview
-
+*.bin
+*.tptbin
+*.o

@@ -24,7 +24,7 @@ int main(void) {
 	int i;
 	char text[100] = "AbCdEfGhIjKlMnOpQrStUvWxYz0123456789aBcDeFgHiJkLmNoPqRsTuVwXyZ";
 
-	ptr_myfile=fopen("test.bin","w");
+	ptr_myfile=fopen("test.bin","w+");
 	
 	if (!ptr_myfile) {
 			printf("Unable to open file!");

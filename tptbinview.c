@@ -1,6 +1,7 @@
 #include <stdlib.h> //noetig fuer atexit()
 #include <curses.h>
 #include <locale.h>
+#include "CalcNumberColumns.h"
 
 WINDOW *headerwin;
 WINDOW *linenumwin;
@@ -51,7 +52,7 @@ void CursesInitialSetup(void) {
 }
 
 int main(void) {
-	int x, y;
+	//int x, y;
 
 	setlocale(LC_CTYPE, "");
 

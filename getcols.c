@@ -9,14 +9,9 @@ int CalcNumberColumns(char *buffer, unsigned short rowlen, unsigned char indic) 
 
 	unsigned int i;
 	
-	// array to hold the offset from buffer start for every column
-	unsigned short col[MAXCOLS];
+	// hold the offset from buffer start
+	unsigned short column;
 	int ret = 0;
-
-	// empty all pointers of columns
-	for (i = 0; i < MAXCOLS; i++) {
-		col[i] = 0x00;
-	}
 
 	// is the offset of the starting byte with the column length
 	unsigned int startbyte;
@@ -27,38 +22,58 @@ int CalcNumberColumns(char *buffer, unsigned short rowlen, unsigned char indic) 
 
 	// set starting point if in indicator mode	
 	if (indic == 1) {
-		col[0] = 1;
+		column = 1;
 		startbyte = 1;
 	} else {
-		col[0] = 0;
+		column = 0;
 		startbyte = 0;
 	}
 
 	for (;;) {
 
-		printf("Debug: %d\t%d\n", startbyte, colnum); 
-		if (col[0] > MAXCOLS / 8 || col[0] > rowlen) {
-			printf("No exact row len found!\n");
+		printf("Debug: %d\t%d\t%d\t%d\n", startbyte, rowlen, colnum, column); 
+
+		if (column > rowlen) {
+			printf("No number of columns found!\n");
+			ret = -4;
+			break;
+		} else if (startbyte > 10) {
+			printf("No number of columns found!\n");
 			ret = -3;
 			break;
 		}
 
-		if (memcpy(&actlen, buffer + col[colnum], sizeof(rowlen))) {
-			if (col[colnum] + actlen < rowlen) {
-				col[colnum + 1] = col[colnum] + actlen + sizeof(rowlen);
+		if (memcpy(&actlen, buffer + column, sizeof(rowlen))) {
+			if (column + actlen < rowlen) {
+				column = column + actlen + sizeof(rowlen);
 				colnum++;
-			} else if (col[colnum] + actlen == rowlen) {
+			} else if (column + actlen == rowlen) {
 				// found number of columns
-				if ((colnum % 8 == 0 && colnum / 8 == col[0]) || (colnum % 8 > 0 && int(column / 8) + 1 > colnum) {
-					// cross check
-					// number of calculated columns does not meet indicator byte
+				if (indic == 1) {
+					// we have indicator byte(s)
+					// check, if the number of indicator bytes match to
+					// found number of columns
+					if (((colnum + 1) % 8 == 0 && (colnum + 1) / 8 == startbyte) ||
+						((colnum + 1) % 8 > 0 && (colnum + 1) / 8 + 1 == startbyte)) {
+						// cross check
+						// number of calculated columns does not meet indicator byte
+						ret = colnum;
+						break;
+					} else {
+						printf("No correct layout found, starting over!\n");
+						startbyte++;        // start at next byte again
+						column = startbyte; // set offset to new start
+						colnum = 0;
+					}
 				} else {
 					printf("Number of columns: %d\n", colnum);
+					ret = colnum;
 					break;
 				}
 			} else {
 				// ran over row length, start over
-				col[0]++;  // start at next byte again
+				startbyte++;        // start at next byte again
+				column = startbyte; // set offset to new start
 				colnum = 0;
 			}
 		} else {
@@ -97,19 +112,22 @@ int main() {
 	unsigned int numofcols = 0;
 
 	while(exit < 0) {
-		if (fread(&rowlen, sizeof(rowlen), 1, ptr_myfile)) {
+		if (fread(&rowlen, 1, sizeof(rowlen), ptr_myfile) == sizeof(rowlen)) {
 			if (fread(buffer, 1, rowlen, ptr_myfile) == rowlen) {
 				numofcols = CalcNumberColumns(buffer, rowlen, 1);
 				if (numofcols > 0) {
-					printf("%d\n", numofcols);
+					printf("Number of columns: %d\n", numofcols);
 					exit = 0;
 				} else {
+					// column count calculation return with error
 					exit = 3;
 				}
 			} else {
+				// row len definition in file does not meet actual row len
 				exit = 2;
 			}
 		} else {
+			// not able to read row len definition in file
 			exit = 1;
 		}
 	}
@@ -117,6 +135,6 @@ int main() {
 	fclose(ptr_myfile);
 	free(buffer);
 
-	return(0);
+	return(exit);
 
 }

@@ -3,7 +3,7 @@
 int CalcNumberColumns(char *buffer, unsigned short rowlen, unsigned char indic) {
 	
 	// hold the offset from buffer
-	unsigned short coloffset;
+	unsigned int coloffset;
 	int ret = 0;
 
 	// is the offset of the starting byte with the coloffset length
@@ -11,7 +11,7 @@ int CalcNumberColumns(char *buffer, unsigned short rowlen, unsigned char indic) 
 	// index for pointer array col
 	unsigned int colnum = 0;
 	// current field length read
-	unsigned short actlen;
+	unsigned int actlen;
 
 	// set starting point if in indicator mode	
 	if (indic == 1) {

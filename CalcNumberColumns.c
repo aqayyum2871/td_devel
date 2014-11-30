@@ -11,7 +11,7 @@ int CalcNumberColumns(char *buffer, unsigned short rowlen, unsigned char indic) 
 	// index for pointer array col
 	unsigned int colnum = 0;
 	// current field length read
-	unsigned int actlen;
+	unsigned short actlen;
 
 	// set starting point if in indicator mode	
 	if (indic == 1) {
@@ -24,7 +24,7 @@ int CalcNumberColumns(char *buffer, unsigned short rowlen, unsigned char indic) 
 
 	for (;;) {
 
-		if (coloffset > rowlen) {
+		if (startbyte > rowlen) {
 			// No number of columns found
 			ret = -3;
 			break;
@@ -34,9 +34,12 @@ int CalcNumberColumns(char *buffer, unsigned short rowlen, unsigned char indic) 
 			break;
 		}
 
+		//printf("Startbyte: %d; Colnum: %d; Coloffset: %d\n", startbyte, colnum, coloffset);
+
 		if (memcpy(&actlen, buffer + coloffset, sizeof(rowlen))) {
+			//printf("Actlen: %d, Calculation: %d\n", actlen, coloffset + actlen);
 			if (coloffset + actlen < rowlen) {
-				coloffset = coloffset + actlen + sizeof(rowlen);
+				coloffset += actlen + sizeof(rowlen);
 				colnum++;
 			} else if (coloffset + actlen == rowlen) {
 				// found number of coloffsets
@@ -44,8 +47,8 @@ int CalcNumberColumns(char *buffer, unsigned short rowlen, unsigned char indic) 
 					// we have indicator byte(s)
 					// check, if the number of indicator bytes match to
 					// found number of coloffsets
-					if (((colnum + 1) % 8 == 0 && (colnum + 1) / 8 == startbyte) ||
-						((colnum + 1) % 8 > 0 && (colnum + 1) / 8 + 1 == startbyte)) {
+					if ((colnum % 8 == 0 && colnum / 8 == startbyte) ||
+						(colnum % 8 > 0 && colnum / 8 + 1 == startbyte)) {
 						// cross check
 						// number of calculated coloffsets does not meet indicator byte
 						ret = colnum;

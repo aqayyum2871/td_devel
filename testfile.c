@@ -26,9 +26,9 @@ int main(int argc, char **argv) {
 				if (optopt == 'c' || optopt == 'r')
 					fprintf (stderr, "Option -%c requires an argument.\n", optopt);
 				else if (isprint (optopt))
-					fprintf (stderr, "Unknown option `-%c'.\n", optopt);
+					fprintf (stderr, "Unknown option '-%c'.\n", optopt);
 				else
-					fprintf (stderr, "Unknown option character `\\x%x'.\n", optopt);
+					fprintf (stderr, "Unknown option character '\\x%x'.\n", optopt);
 				return(2);
 		}
 	}
@@ -39,7 +39,7 @@ int main(int argc, char **argv) {
 	} else {
 		numindic = numcols / 8 + 1;
 	}
-	char indic[numindic];
+	unsigned char indic[numindic];
 	for (i = 0; i < numindic; i++) {
 		indic[i] = 0x00;
 	}
@@ -49,7 +49,7 @@ int main(int argc, char **argv) {
 
 	for (j = 0; j < numcols; j++) {
 		col[j] = &text[j];
-		collen[j] = rand() % 50 + 2;
+		collen[j] = rand() % 40 + 2;
 		rowlen += collen[j] + 2;
 	}
 

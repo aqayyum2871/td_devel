@@ -46,8 +46,17 @@ int main(void) {
 
 			if (bytesread == rowlen) {
 
+				//printf("Row: %d; Length: %d\n", rownum, rowlen);
+				
 				// calculate here
 				numofcols = CalcNumberColumns(buffer, rowlen, 1);
+
+				// clear buffer
+				int i;
+				char *p = buffer;
+				for (i = 0; i < rowlen; i++) {
+					*p++ = 0x00;
+				}
 
 				if (printnumcols == 0) {
 					printnumcols = numofcols;
@@ -61,17 +70,17 @@ int main(void) {
 				if (numofcols == -1) {
 					// internal buffer error
 					printf("%d: Error! Record structure faulty?\n", rownum + 1);
-					exit = 3;
+					exit = 7;
 					break;
 				} else if (numofcols == -2) {
 					// maximum number of columns reached
 					printf("A:%d: No number of columns determined. Probable previous record failure!\n", rownum + 1);
-					exit = 3;
+					exit = 6;
 					break;
 				} else if (numofcols == -3) {
 					// offset reached length of row
 					printf("B:%d: No number of columns determined. Probable previous record failure!\n", rownum + 1);
-					exit = 3;
+					exit = 5;
 					break;
 				}
 
@@ -81,7 +90,7 @@ int main(void) {
 					printf("%d columns for rows %d to %d\n", printnumcols, printnumrows + 1, rownum);
 				}
 
-				exit = 2;
+				exit = 4;
 				break;
 
 			} else {
@@ -92,7 +101,7 @@ int main(void) {
 
 				// row len definition in file does not meet actual row len
 				printf("Row %d: Row len definition in file does not meet actual row len\n", rownum);
-				exit = 2;
+				exit = 3;
 				break;
 
 			}

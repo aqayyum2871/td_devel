@@ -8,8 +8,8 @@ clean:
 %.o: %.c
 	gcc -Wall -g -c $<
 
-getcols: getcols.o CalcNumberColumns.o
-	gcc -o getcols getcols.o CalcNumberColumns.o
+checkcols: checkcols.o CalcNumberColumns.o
+	gcc -o checkcols checkcols.o CalcNumberColumns.o
 
 tptbinview: tptbinview.o
 	gcc -o tptbinview tptbinview.o

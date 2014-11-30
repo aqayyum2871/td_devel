@@ -1,8 +1,6 @@
 #include "CalcNumberColumns.h"
 
 int CalcNumberColumns(char *buffer, unsigned short rowlen, unsigned char indic) {
-
-	unsigned int i;
 	
 	// hold the offset from buffer
 	unsigned short coloffset;
@@ -28,11 +26,11 @@ int CalcNumberColumns(char *buffer, unsigned short rowlen, unsigned char indic) 
 
 		if (coloffset > rowlen) {
 			// No number of columns found
-			ret = -4;
-			break;
-		} else if (startbyte > 10) { // change value after development
-			// No number of columns found
 			ret = -3;
+			break;
+		} else if (startbyte > MAXCOLS) {
+			// No number of columns found
+			ret = -2;
 			break;
 		}
 
@@ -69,7 +67,6 @@ int CalcNumberColumns(char *buffer, unsigned short rowlen, unsigned char indic) 
 				colnum = 0;
 			}
 		} else {
-			printf("Error while coping from buffer to field len.\n");
 			ret = -1;
 			break;
 		}

@@ -14,6 +14,8 @@ struct rec
 		char f3[8];
 		unsigned short lenf4;
 		char f4[32];
+		unsigned short lenf5;
+		char f5[17];
 	};
 #pragma pack()
 
@@ -24,7 +26,7 @@ int main(void) {
 	int i;
 	char text[100] = "AbCdEfGhIjKlMnOpQrStUvWxYz0123456789aBcDeFgHiJkLmNoPqRsTuVwXyZ";
 
-	ptr_myfile=fopen("test.bin","w+");
+	ptr_myfile=fopen("test.bin","a");
 	
 	if (!ptr_myfile) {
 			printf("Unable to open file!");
@@ -52,8 +54,12 @@ int main(void) {
 	}
 	my_record.f4[sizeof(my_record.f4)-1] = 0x00;
 	my_record.lenf4 = sizeof(my_record.f4);
-	my_record.len = my_record.lenf1 + my_record.lenf2 + my_record.lenf3 + my_record.lenf4 + 9;
-	//my_record.len = my_record.lenf1 + my_record.lenf2 + my_record.lenf3 + my_record.lenf4;
+	for (i = 0; i < sizeof(my_record.f5) -1; i++) {
+		my_record.f5[i] = text[i];
+	}
+	my_record.f5[sizeof(my_record.f5)-1] = 0x00;
+	my_record.lenf5 = sizeof(my_record.f5);
+	my_record.len = my_record.lenf1 + my_record.lenf2 + my_record.lenf3 + my_record.lenf4 + my_record.lenf5 + 9;
 
 	fwrite(&my_record, sizeof(struct rec), 1, ptr_myfile);
 

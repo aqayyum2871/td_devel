@@ -8,7 +8,6 @@
 int main(void) {
 
 	FILE *ptr_myfile;
-	int i;
 	unsigned short rowlen;
 	char *buffer;
 	unsigned int rownum = 0;
@@ -16,8 +15,8 @@ int main(void) {
 	ptr_myfile=fopen("test.bin","r");
 	
 	if (!ptr_myfile) {
-			printf("Unable to open file!");
-			return(1);
+		printf("Unable to open file!");
+		return(1);
 	}
 
 	buffer=(char *)malloc(MAXBUF+1);
@@ -28,29 +27,93 @@ int main(void) {
 	}
 
 	char exit = -1;
-	unsigned int numofcols = 0;
+	int numofcols = 0;
+	unsigned int printnumcols = 0;
+	unsigned int printnumrows = 0;
+	size_t bytesread;
 
-	while(exit < 0) {
+	while (!feof(ptr_myfile)) {
+
+		printf("%d\n", rownum);
+
 		// read the row len definition from file (2 bytes)
-		if (fread(&rowlen, 1, sizeof(rowlen), ptr_myfile) != EOF) {
+		bytesread = fread(&rowlen, 1, sizeof(rowlen), ptr_myfile);
+
+		if (bytesread == sizeof(rowlen)) {
+
 			// read the row data based on the known length
-			if (fread(buffer, 1, rowlen, ptr_myfile) == rowlen) {
+			bytesread = fread(buffer, 1, rowlen, ptr_myfile);
+
+			if (bytesread == rowlen) {
+
 				numofcols = CalcNumberColumns(buffer, rowlen, 1);
-				if (numofcols > 0) {
-					printf("Number of columns: %d in row %d\n", numofcols, rownum);
-				} else {
-					// coloffset count calculation return with error
-					exit = 3;
+
+				if (printnumcols == 0) {
+					printnumcols = numofcols;
+					printnumrows = rownum;
+				} else if (printnumcols > 0 && numofcols != printnumcols) {
+					printf("%d columns, rows %d to %d\n", printnumcols, printnumrows + 1, rownum + 1);
+					printnumcols = numofcols;
+					printnumrows = rownum;
 				}
-			} else {
-				// row len definition in file does not meet actual row len
+
+				if (numofcols == -1) {
+					// internal buffer error
+					printf("%d: Error! Record structure faulty?\n", rownum + 1);
+					exit = 3;
+					break;
+				} else if (numofcols == -2) {
+					// maximum number of columns reached
+					printf("%d: No number of columns determined. Probable previous record failure!\n", rownum + 1);
+					exit = 3;
+					break;
+				} else if (numofcols == -3) {
+					// offset reached length of row
+					printf("%d: No number of columns determined. Probable previous record failure!\n", rownum + 1);
+					exit = 3;
+					break;
+				}
+
+			} else if (bytesread == 0) {
+
+				if (printnumcols > 0) {
+					printf("%d columns, rows %d to %d\n", printnumcols, printnumrows + 1, rownum);
+				}
+
 				exit = 2;
+				break;
+
+			} else {
+
+				// row len definition in file does not meet actual row len
+				printf("%d\n", (int)bytesread);
+				printf("Row %d: Row len definition in file does not meet actual row len\n", rownum);
+				exit = 2;
+				break;
+
 			}
+
 			rownum++;
+
+		} else if (bytesread == 0) {
+
+			if (printnumcols > 0) {
+				printf("%d columns, rows %d to %d\n", printnumcols, printnumrows + 1, rownum);
+			}
+
+			exit = 0;
+			break;
+
 		} else {
+
 			// not able to read row len definition in file
+			printf("%d\n", (int)bytesread);
+			printf("Row %d: Not able to read row len definition in file\n", rownum);
 			exit = 1;
+			break;
+
 		}
+
 	}
 
 	fclose(ptr_myfile);

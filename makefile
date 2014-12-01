@@ -1,9 +1,10 @@
 OBJ = tptbincheck.o CalcNumberColumns.o tptbinview.o tptbintestfile.o tptbinslice.o
+EXE = tptbincheck tptbinview tptbintestfile tptbinslice
 
-all: tptbincheck CalcNumberColumns.o tptbinview tptbintestfile
+all: tptbincheck tptbinview tptbintestfile tptbinslice
 
 clean:
-	rm -rf $(OBJ)
+	rm -rf $(OBJ) $(EXE)
 
 %.o: %.c
 	gcc -Wall -g -c $<

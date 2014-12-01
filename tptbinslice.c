@@ -76,7 +76,7 @@ int main(int argc, char **argv) {
 
 			if (bytesread == rowlen) {
 			
-				if (rownum >= fromrow && rownum <= torow) {
+				if ((rownum + 1) >= fromrow && (rownum + 1) <= torow) {
 					fwrite(&rowlen, sizeof(rowlen), 1, stdout);
 					fwrite(buffer, rowlen, 1, stdout);
 				}

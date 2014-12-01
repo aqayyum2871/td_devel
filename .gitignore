@@ -1,5 +1,6 @@
 tptbincheck
 tptbintestfile
 tptbinview
+tptbinslice
 *.bin
 *.o

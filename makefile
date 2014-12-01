@@ -1,4 +1,4 @@
-OBJ = tptbincheck.o CalcNumberColumns.o tptbinview.o tptbintestfile.o
+OBJ = tptbincheck.o CalcNumberColumns.o tptbinview.o tptbintestfile.o tptbinslice.o
 
 all: tptbincheck CalcNumberColumns.o tptbinview tptbintestfile
 
@@ -16,3 +16,6 @@ tptbinview: tptbinview.o
 
 tptbintestfile: tptbintestfile.o
 	gcc -o tptbintestfile tptbintestfile.o
+
+tptbinslice: tptbinslice.o
+	gcc -o tptbinslice tptbinslice.o

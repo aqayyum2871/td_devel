@@ -1,6 +1,5 @@
-checkcols
-testfile
+tptbincheck
+tptbintestfile
 tptbinview
 *.bin
-*.tptbin
 *.o

@@ -1,6 +1,6 @@
-OBJ = getcols.o CalcNumberColumns.o tptbinview.o testfile.o
+OBJ = tptbincheck.o CalcNumberColumns.o tptbinview.o tptbintestfile.o
 
-all: getcols CalcNumberColumns.o tptbinview testfile
+all: tptbincheck CalcNumberColumns.o tptbinview tptbintestfile
 
 clean:
 	rm -rf $(OBJ)
@@ -8,11 +8,11 @@ clean:
 %.o: %.c
 	gcc -Wall -g -c $<
 
-checkcols: checkcols.o CalcNumberColumns.o
-	gcc -o checkcols checkcols.o CalcNumberColumns.o
+tptbincheck: tptbincheck.o CalcNumberColumns.o
+	gcc -o tptbincheck tptbincheck.o CalcNumberColumns.o
 
 tptbinview: tptbinview.o
-	gcc -o tptbinview tptbinview.o
+	gcc -o tptbinview tptbinview.o -lncurses
 
-testfile: testfile.o
-	gcc -o testfile testfile.o
+tptbintestfile: tptbintestfile.o
+	gcc -o tptbintestfile tptbintestfile.o

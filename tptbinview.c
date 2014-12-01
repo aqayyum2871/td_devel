@@ -1,5 +1,5 @@
 #include <stdlib.h> //noetig fuer atexit()
-#include <curses.h>
+#include <ncurses.h>
 #include <locale.h>
 #include "CalcNumberColumns.h"
 

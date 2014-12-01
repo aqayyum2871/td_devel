@@ -5,16 +5,21 @@
 
 #define MAXBUF 1000000
 
-int main(void) {
+int main(int argc, char **argv) {
 
 	FILE *ptr_myfile;
 	char *buffer;
 	unsigned int rownum = 0;
 
-	ptr_myfile=fopen("test.bin","r");
+	if (argc != 2) {
+		fprintf(stderr, "Please, give file in tptbin format!\n");
+		return(1);
+	}
+		
+	ptr_myfile=fopen(argv[1],"r");
 	
 	if (!ptr_myfile) {
-		printf("Unable to open file!");
+		printf("Unable to open file: %s!\n", argv[1]);
 		return(1);
 	}
 

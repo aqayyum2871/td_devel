@@ -67,20 +67,15 @@ int CalcNumberColumns(char *buffer, unsigned short rowlen, unsigned char indicat
 						// cross check
 						// number of calculated coloffsets meet indicator byte
 						char correct = 0;
-						printf("End check: %d\nCheck indic:", colnum);
 						for (i = 0; i < colnum; i++) {
-							printf(":%d", colnum);
 							if (collen[i] == 0 && isBitSet(buffer[i / 8], (i % 8))) {
 								// null bit for column is set, and column length is zero
-								printf("/%d", correct);
 								correct++;
 							} else if (collen[i] > 0 && !isBitSet(buffer[i / 8], (i % 8))) {
 								// null bit for column is not set, and column length is greater zero
-								printf("|%d", correct);
 								correct++;
 							}
 						}
-						printf("\n");
 						if (correct == colnum) {
 							ret = colnum;
 							break;

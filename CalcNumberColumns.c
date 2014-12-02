@@ -1,7 +1,7 @@
 #include "CalcNumberColumns.h"
 #include "isBitSet.h"
 
-int CalcNumberColumns(char *buffer, unsigned short rowlen, unsigned char indic) {
+int CalcNumberColumns(char *buffer, unsigned short rowlen, unsigned char indicator, unsigned int numcols) {
 	
 	int ret = 0;
 	unsigned int i;
@@ -14,17 +14,22 @@ int CalcNumberColumns(char *buffer, unsigned short rowlen, unsigned char indic) 
 	unsigned int colnum = 0;
 	// current field length read
 	unsigned short actlen;
+	// calculate number of indicator bytes from indicator and numcols
+	unsigned int numindic = 0;
 
 	// array, to hold length of every column
 	unsigned short collen[MAXCOLS];
 
 	// set starting point if in indicator mode	
-	if (indic == 1) {
+	coloffset = 0;
+	startbyte = 0;
+	if (indicator == 1 && numcols > 0) {
+		numindic = (numcols + 7) / 8;
+		coloffset = numindic;
+		startbyte = numindic;
+	} else if (indicator == 1) {
 		coloffset = 1;
 		startbyte = 1;
-	} else {
-		coloffset = 0;
-		startbyte = 0;
 	}
 
 	for (;;) {
@@ -51,11 +56,14 @@ int CalcNumberColumns(char *buffer, unsigned short rowlen, unsigned char indic) 
 				colnum++;
 			} else if (coloffset + actlen == rowlen) {
 				// found number of coloffsets
-				if (indic == 1) {
+				if (indicator == 1) {
 					// we have indicator byte(s)
 					// check, if the number of indicator bytes match to
 					// found number of coloffsets
-					if ((colnum + 7 ) / 8 == startbyte) {
+					if (numindic > 0) {
+						ret = colnum;
+						break;
+					} else if ((colnum + 7 ) / 8 == startbyte) {
 						// cross check
 						// number of calculated coloffsets meet indicator byte
 						char correct = 0;
@@ -93,10 +101,15 @@ int CalcNumberColumns(char *buffer, unsigned short rowlen, unsigned char indic) 
 					break;
 				}
 			} else {
-				// ran over row length, start over
-				startbyte++;        // start at next byte again
-				coloffset = startbyte; // set offset to new start
-				colnum = 0;
+				// ran over row length
+				if (indicator == 1 && numindic == 0) {
+					startbyte++;        // start at next byte again
+					coloffset = startbyte; // set offset to new start
+					colnum = 0;
+				} else if (numindic > 0) {
+					ret = -4;
+					break;
+				}
 			}
 		} else {
 			ret = -1;

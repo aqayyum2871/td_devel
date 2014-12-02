@@ -71,7 +71,7 @@ int main(int argc, char **argv) {
 		return(2);
 	}
 
-	ptr_myfile=fopen("test.bin","a");
+	ptr_myfile=fopen(argv[optind],"a");
 	
 	if (!ptr_myfile) {
 		printf("Unable to open file!");

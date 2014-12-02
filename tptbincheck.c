@@ -79,12 +79,12 @@ int main(int argc, char **argv) {
 					break;
 				} else if (numofcols == -2) {
 					// maximum number of columns reached
-					printf("A:%d: No number of columns determined. Probable previous record failure!\n", rownum + 1);
+					printf("%d: No number of columns determined. Reached maximum column count.\n", rownum + 1);
 					exit = 6;
 					break;
 				} else if (numofcols == -3) {
 					// offset reached length of row
-					printf("B:%d: No number of columns determined. Probable previous record failure!\n", rownum + 1);
+					printf("%d: No number of columns determined. Reached record len.\n", rownum + 1);
 					exit = 5;
 					break;
 				}

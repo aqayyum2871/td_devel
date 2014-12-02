@@ -1,11 +1,47 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <getopt.h>
+#include <ctype.h>
 #include "CalcNumberColumns.h"
 
 #define MAXBUF 1000000
 
 int main(int argc, char **argv) {
+
+	int c;
+	unsigned int columns = 0;
+
+	opterr = 0;
+
+	while ((c = getopt (argc, argv, "f:t:h")) != -1) {
+		switch (c) {
+			case 'c':
+				columns = atoi(optarg);
+				break;
+			case '?':
+				if (optopt == 'c')
+					fprintf (stderr, "Option -%c requires an argument.\n", optopt);
+				else if (isprint (optopt))
+					fprintf (stderr, "Unknown option '-%c'.\n", optopt);
+				else
+					fprintf (stderr, "Unknown option character '\\x%x'.\n", optopt);
+				return(1);
+		}
+	}
+
+	FILE *ptr_myfile;
+	char *buffer;
+	unsigned int rownum = 0;
+
+	for (i = optind; i < argc; i++) {
+		if ((ptr_myfile=fopen(argv[i],"r")) == NULL) {
+			fprintf(stderr, "Please, provide file in tptbin format!\n");
+			return(1);
+		} else {
+			break;
+		}
+	}
 
 	FILE *ptr_myfile;
 	char *buffer;

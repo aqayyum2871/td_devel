@@ -115,7 +115,7 @@ int main(int argc, char **argv) {
 					break;
 				} else if (numofcols == -4) {
 					// give information of record does not match physical record
-					printf("%d: No correct record format found!\n");
+					printf("%d: No correct record format found!\n", rownum + 1);
 					exit = 8;
 					break;
 				}

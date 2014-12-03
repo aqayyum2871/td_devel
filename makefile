@@ -6,6 +6,9 @@ all: tptbincheck tptbinview tptbintestfile tptbinslice
 clean:
 	rm -rf $(OBJ) $(EXE)
 
+install:
+	cp -p tptbincheck tptbinview tptbintestfile tptbinslice $(HOME)/bin
+
 %.o: %.c
 	gcc -Wall -g -c $<
 

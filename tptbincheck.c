@@ -11,7 +11,6 @@ int main(int argc, char **argv) {
 
 	int c;
 	unsigned int columns = 0;
-	int numindic = 0;
 	int indicator = 0;
 
 	FILE *ptr_myfile;

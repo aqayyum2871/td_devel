@@ -103,7 +103,7 @@ int main(int argc, char **argv) {
 					exit = 7;
 					break;
 				} else if (numofcols == -2) {
-					// maximum number of columns reached
+					// maximum number of supported columns reached
 					printf("%d: No number of columns determined. Reached maximum column count.\n", rownum + 1);
 					exit = 6;
 					break;
@@ -113,9 +113,19 @@ int main(int argc, char **argv) {
 					exit = 5;
 					break;
 				} else if (numofcols == -4) {
-					// give information of record does not match physical record
-					printf("%d: No correct record format found!\n", rownum + 1);
+					// Indicator, number of columns, but no record format found
+					printf("%d: Indicator, number of columns given, but no correct record format found!\n", rownum + 1);
 					exit = 8;
+					break;
+				} else if (numofcols == -5) {
+					// No indicator, no number of columns, no record format found
+					printf("%d: No indicator, no number of columns given. No correct record format found!\n", rownum + 1);
+					exit = 9;
+					break;
+				} else if (numofcols == -6) {
+					// No indicator, number of columns, no record format found
+					printf("%d: No indicator, number of columns given, but no correct record format found!\n", rownum + 1);
+					exit = 10;
 					break;
 				}
 			} else if (bytesread == 0) {

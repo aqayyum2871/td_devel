@@ -110,12 +110,18 @@ int CalcNumberColumns(char *buffer, unsigned short rowlen, unsigned char indicat
 				}
 			} else {
 				// ran over row length
-				if (indicator == 1 && numindic == 0) {
+				if (indicator == 1 && numcols == 0) {
 					startbyte++;        // start at next byte again
 					coloffset = startbyte; // set offset to new start
 					colnum = 0;
-				} else if (numindic > 0) {
+				} else if (indicator == 1 && numcols > 0) {
 					ret = -4;
+					break;
+				} else if (indicator == 0 && numcols == 0) {
+					ret = -5;
+					break;
+				} else if (indicator == 0 && numcols > 0) {
+					ret = -6;
 					break;
 				}
 			}

@@ -99,7 +99,7 @@ int main(int argc, char **argv) {
 
 				if (numofcols == -1) {
 					// internal buffer error
-					printf("%d: Error! Record structure faulty?\n", rownum + 1);
+					printf("%d: Internal Error!\n", rownum + 1);
 					exit = 7;
 					break;
 				} else if (numofcols == -2) {

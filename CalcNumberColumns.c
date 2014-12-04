@@ -16,6 +16,8 @@ int CalcNumberColumns(char *buffer, unsigned short rowlen, unsigned char indicat
 	unsigned short actlen;
 	// calculate number of indicator bytes from indicator and numcols
 	unsigned int numindic = 0;
+	// max number of columns found
+	unsigned int maxnumcols = 0;
 
 	// array, to hold length of every column
 	unsigned short collen[MAXCOLS];
@@ -34,7 +36,10 @@ int CalcNumberColumns(char *buffer, unsigned short rowlen, unsigned char indicat
 
 	for (;;) {
 
-		if (startbyte > rowlen) {
+		if (maxnumcols > 0 && (startbyte > rowlen || startbyte > MAXCOLS) ) {
+			ret = maxnumcols;
+			break;
+		} else if (startbyte > rowlen) {
 			// No number of columns found
 			ret = -3;
 			break;
@@ -61,6 +66,8 @@ int CalcNumberColumns(char *buffer, unsigned short rowlen, unsigned char indicat
 					// check, if the number of indicator bytes match to
 					// found number of coloffsets
 					if (numindic > 0) {
+						// number of indicator bytes are given from invoking routine
+						// so, we treat it as true
 						ret = colnum;
 						break;
 					} else if ((colnum + 7 ) / 8 == startbyte) {
@@ -77,8 +84,14 @@ int CalcNumberColumns(char *buffer, unsigned short rowlen, unsigned char indicat
 							}
 						}
 						if (correct == colnum) {
-							ret = colnum;
-							break;
+							// all indicators fit to column content
+							// memorize if largest number of columns and start over
+							if (maxnumcols < colnum) {
+								maxnumcols = colnum;
+							}
+							startbyte++;           // start at next byte again
+							coloffset = startbyte; // set offset to new start
+							colnum = 0;
 						} else {
 							// No correct layout found, starting over
 							startbyte++;           // start at next byte again

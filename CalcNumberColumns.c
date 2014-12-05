@@ -91,7 +91,6 @@ int CalcNumberColumns(char *buffer, unsigned short rowlen, unsigned char indicat
 								}
 							}
 						}
-						printf("%d\t%d\n", correct, colnum);
 						if (correct == (((colnum + 7) / 8) * 8)) {
 							// all indicators fit to column content
 							// memorize if largest number of columns and start over

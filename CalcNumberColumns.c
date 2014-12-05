@@ -73,17 +73,26 @@ int CalcNumberColumns(char *buffer, unsigned short rowlen, unsigned char indicat
 					} else if ((colnum + 7 ) / 8 == startbyte) {
 						// cross check
 						// number of calculated coloffsets meet indicator byte
-						char correct = 0;
-						for (i = 0; i < colnum; i++) {
-							if (collen[i] == 0 && isBitSet(buffer[i / 8], (i % 8))) {
-								// null bit for column is set, and column length is zero
-								correct++;
-							} else if (collen[i] > 0 && !isBitSet(buffer[i / 8], (i % 8))) {
-								// null bit for column is not set, and column length is greater zero
-								correct++;
+						unsigned int correct = 0;
+						for (i = 0; i < (((colnum + 7) / 8) * 8); i++) {
+							if (i < colnum) {
+								if (collen[i] == 0 && isBitSet(buffer[i / 8], (i % 8))) {
+									// null bit for column is set, and column length is zero
+									correct++;
+								} else if (collen[i] > 0 && !isBitSet(buffer[i / 8], (i % 8))) {
+									// null bit for column is not set, and column length is greater zero
+									correct++;
+								}
+							} else {
+								// check if remaining bits of indicator byte are not set
+								if (!isBitSet(buffer[i / 8], (i % 8))) {
+									// bits are not set
+									correct++;
+								}
 							}
 						}
-						if (correct == colnum) {
+						printf("%d\t%d\n", correct, colnum);
+						if (correct == (((colnum + 7) / 8) * 8)) {
 							// all indicators fit to column content
 							// memorize if largest number of columns and start over
 							if (maxnumcols < colnum) {

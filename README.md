@@ -36,8 +36,3 @@ Tools to run against Teradata Databases.
 tools
 =====
 Some other small helpful tools with no database involvement.
-
-tptbin
-======
-TPT (Teradata Parallel Transporter) has an option for a special binary format.
-Some tools for handling those data files in this folder.

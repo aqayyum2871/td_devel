@@ -25,3 +25,8 @@ sbitwrapper.c
 =============
 It is not allowed on Unix/Linux boxes to set the s-bit on an interpreted script file.
 This is a compilable program, which executes a (eg. shell) script. On the compiled program, the s-bit can be set.
+
+tptbin
+======
+TPT (Teradata Parallel Transporter) has an option for a special binary format.
+Some tools for handling those data files in this folder.

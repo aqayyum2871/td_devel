@@ -4,10 +4,10 @@ EXE = tptbincheck tptbinview tptbintestfile tptbinslice
 all: tptbincheck tptbinview tptbintestfile tptbinslice
 
 clean:
-	rm -rf $(OBJ) $(EXE)
+	rm -f $(OBJ) $(EXE)
 
 install:
-	cp -p tptbincheck tptbinview tptbintestfile tptbinslice $(HOME)/bin
+	cp -p $(EXE) $(HOME)/bin
 
 %.o: %.c
 	gcc -Wall -g -c $<

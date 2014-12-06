@@ -2,7 +2,7 @@ Here are some tools for the binary format of TPT (Teradata Parallel Transporter)
 
 They usually operate on files, so no piping is currently supported.
 
-The format is defined as:
+Every record **must** follow the format:
 
 1. Two byte which store the length of one logical record (this two bytes are not included in the record length)
 2. (Optional) Null indicator. For every 8 columns one byte. A set bit indicates a null column. From left to right.

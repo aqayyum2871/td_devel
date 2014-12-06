@@ -27,7 +27,9 @@ int main(int argc, char **argv) {
 				numrows = atoi(optarg);
 				break;
 			case 'm':
-				maxlen = atoi(optarg);
+				if (strlen(text) > atoi(optarg)) {
+					maxlen = atoi(optarg);
+				}
 				break;
 			case 'h':
 				printf("usage: %s [-c numcols] [-r numrows] [-m maxcollen] [-i] [-h] filename\n", argv[0]);

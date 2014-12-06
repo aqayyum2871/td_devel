@@ -48,7 +48,7 @@ Arguments are optional:
 ```
  -c = number of columns (if omitted, 5 columns)
  -r = number or rows (if omitted, 1 row)
- -m = maximum number of bytes per column (if omitted, 40 bytes)
+ -m = maximum number of bytes per column (if omitted, 40 bytes; maximum 62)
  -i = Include Null Indicator bytes (if omitted, no null indicator)
  -h = short help for invocation
 ```

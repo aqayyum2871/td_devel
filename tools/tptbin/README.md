@@ -23,39 +23,38 @@ tptbincheck
 Check of file consistency and some stats.
 
 Arguments are optional:
-`
+```
  -c = number of columns (tptbincheck will not try to determine the number of columns)
  -i = Include Null Indicator bytes (if omitted, no null indicator)
  -h = short help for invocation
-`
-
+```
 
 tptbinslice
 ===========
 Cut out certain rows of the data file.
 
 Arguments are optional:
-`
+```
  -f = from row (if omitted, from row 1)
  -t = to row (if omitted, to row 1)
  -h = short help for invocation
-`
+```
 
 tptbintestfile
 ==============
 To create a test file in TPT binary format.
 
 Arguments are optional:
-`
+```
  -c = number of columns (if omitted, 5 columns)
  -r = number or rows (if omitted, 1 row)
  -m = maximum number of bytes per column (if omitted, 40 bytes)
  -i = Include Null Indicator bytes (if omitted, no null indicator)
  -h = short help for invocation
-`
+```
 
 tptbinview
 ==========
 Work in progress.
 
-Goal is a interactive viewer for the file content, powered by ncurses!
+Goal is an interactive viewer for the file content, powered by ncurses!

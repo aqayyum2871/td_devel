@@ -23,13 +23,17 @@ int main(int argc, char **argv) {
 
 	opterr = 0;
 
-	while ((c = getopt (argc, argv, "c:i")) != -1) {
+	while ((c = getopt (argc, argv, "c:hi")) != -1) {
 		switch (c) {
 			case 'c':
 				columns = atoi(optarg);
 				break;
 			case 'i':
 				indicator = 1;
+				break;
+			case 'h':
+				printf("usage: %s [-c numcols] [-i] [-h] filename\n", argv[0]);
+				return(1);
 				break;
 			case '?':
 				if (optopt == 'c')

@@ -24,7 +24,7 @@ int main(int argc, char **argv) {
 				torow = atoi(optarg);
 				break;
 			case 'h':
-				printf("usage: %s [-f fromrow] [-t torow] filename\n", argv[0]);
+				printf("usage: %s [-f fromrow] [-t torow] [-h] filename\n", argv[0]);
 				return(1);
 				break;
 			case '?':

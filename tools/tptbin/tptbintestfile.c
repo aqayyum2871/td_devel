@@ -30,7 +30,7 @@ int main(int argc, char **argv) {
 				maxlen = atoi(optarg);
 				break;
 			case 'h':
-				printf("usage: %s [-c numcols] [-r numrows] [-m maxcollen] [-i]\n", argv[0]);
+				printf("usage: %s [-c numcols] [-r numrows] [-m maxcollen] [-i] [-h] filename\n", argv[0]);
 				return(1);
 				break;
 			case 'i':

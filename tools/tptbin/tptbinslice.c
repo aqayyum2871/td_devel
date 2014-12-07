@@ -1,10 +1,9 @@
+#include "Standards.h"
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 #include <getopt.h>
 #include <ctype.h>
-
-#define MAXBUF 1000000
 
 int main(int argc, char **argv) {
 

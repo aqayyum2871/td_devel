@@ -1,7 +1,7 @@
 OBJ = tptbincheck.o CalcNumberColumns.o tptbinview.o tptbintestfile.o tptbinslice.o isBitSet.o tptbinrc.o
-EXE = tptbincheck tptbinview tptbintestfile tptbinslice tptbinrc
+EXE = tptbincheck tptbintestfile tptbinslice tptbinrc
 
-all: tptbincheck tptbintestfile tptbinslice tptbinrc
+all: $(EXE)
 
 clean:
 	rm -f $(OBJ) $(EXE)

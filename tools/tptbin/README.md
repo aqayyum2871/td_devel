@@ -11,15 +11,15 @@ Every record **must** follow the format:
 
 No CR or else is required.
 
-Compile
-=======
+# Compile
+
 ```
 make clean
 make all
 ```
 
-tptbincheck
-===========
+# tptbincheck
+
 Check of file consistency and some stats.
 
 Arguments are optional:
@@ -29,8 +29,12 @@ Arguments are optional:
  -h = short help for invocation
 ```
 
-tptbinslice
-===========
+# tptbinrc
+
+Rowcount of TPT binary files. Output is like from `wc -l`
+
+# tptbinslice
+
 Cut out certain rows of the data file.
 
 Arguments are optional:
@@ -40,8 +44,8 @@ Arguments are optional:
  -h = short help for invocation
 ```
 
-tptbintestfile
-==============
+# tptbintestfile
+
 To create a test file in TPT binary format.
 
 Arguments are optional:
@@ -53,8 +57,8 @@ Arguments are optional:
  -h = short help for invocation
 ```
 
-tptbinview
-==========
+# tptbinview
+
 Work in progress.
 
 Goal is an interactive viewer for the file content, powered by ncurses!

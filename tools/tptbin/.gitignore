@@ -2,5 +2,9 @@ tptbincheck
 tptbintestfile
 tptbinview
 tptbinslice
+tptbinrc
 *.bin
 *.o
+.DS_Store
+._.DS_Store
+

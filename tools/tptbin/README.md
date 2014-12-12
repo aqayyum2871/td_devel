@@ -29,6 +29,26 @@ Arguments are optional:
  -h = short help for invocation
 ```
 
+# tptbincut
+
+Cut columns from file. Choose from a range (-f, -t), or explicitly select columns (-s).
+
+If no options (-s, -f, -t) are given, all columns are printed.
+
+Can also be used to generate CSV file.
+
+Arguments are optional:
+```
+ -c = number of columns (tptbincut will not try to determine the number of columns)
+ -f = from column number
+ -t = to column number (must be greater or equal than from column number)
+ -s = select explicitly columns (separate with comma, multiple nominations allowed)
+ -q = quote every column the that characters (up to 5 characters allowed)
+ -d = delimiter between columns (up to 5 characters allowed)
+ -i = Include Null Indicator bytes (if omitted, no null indicator)
+ -h = short help for invocation
+```
+
 # tptbinrc
 
 Rowcount of TPT binary files. Output is like from `wc -l`

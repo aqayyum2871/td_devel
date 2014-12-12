@@ -1,5 +1,5 @@
-OBJ = tptbincheck.o CalcNumberColumns.o tptbinview.o tptbintestfile.o tptbinslice.o isBitSet.o tptbinrc.o
-EXE = tptbincheck tptbintestfile tptbinslice tptbinrc
+OBJ = tptbincheck.o CalcNumberColumns.o tptbinview.o tptbintestfile.o tptbinslice.o isBitSet.o tptbinrc.o tptbincut.o
+EXE = tptbincheck tptbintestfile tptbinslice tptbinrc tptbincut
 
 all: $(EXE)
 
@@ -14,6 +14,9 @@ install:
 
 tptbincheck: tptbincheck.o CalcNumberColumns.o isBitSet.o
 	gcc -o tptbincheck tptbincheck.o CalcNumberColumns.o isBitSet.o
+
+tptbincut: tptbincut.o CalcNumberColumns.o isBitSet.o
+	gcc -o tptbincut tptbincut.o CalcNumberColumns.o isBitSet.o
 
 tptbinview: tptbinview.o CalcNumberColumns.o isBitSet.o
 	gcc -o tptbinview tptbinview.o CalcNumberColumns.o isBitSet.o -lncurses

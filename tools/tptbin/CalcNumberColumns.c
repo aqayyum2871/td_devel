@@ -52,7 +52,7 @@ int CalcNumberColumns(char *buffer, unsigned short rowlen, unsigned char indicat
 
 		//printf("Startbyte: %d; Colnum: %d; Coloffset: %d\n", startbyte, colnum, coloffset);
 
-		if (memcpy(&actlen, buffer + coloffset, sizeof(rowlen))) {
+		if (memcpy(&actlen, buffer + coloffset, sizeof(actlen))) {
 			//printf("Actlen: %d, Calculation: %d\n", actlen, coloffset + actlen);
 			
 			collen[colnum] = actlen;

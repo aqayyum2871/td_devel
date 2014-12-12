@@ -18,8 +18,8 @@ int main(int argc, char **argv) {
 	unsigned short selectcol[MAXCOLS];
 	int c;
 	char *token;
-	char delimiter[5] = ";"; // maximum 5 bytes as delimiter
-	char quotechar[5] = "";
+	char delimiter[11] = ";"; // maximum 5 bytes as delimiter
+	char quotechar[11] = "";
 	int exit = -1;
 
 	// clear array for select col indicator

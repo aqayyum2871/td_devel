@@ -34,7 +34,7 @@
 #include "Standards.h"
 #include <stdio.h>
 #include <unistd.h>
-#include <malloc.h>
+#include <stdlib.h>
 
 int main(int argc, char **argv) {
 

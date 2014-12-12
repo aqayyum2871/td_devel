@@ -59,7 +59,7 @@ int main(int argc, char **argv) {
 	buffer = (char *)malloc(MAXBUF+1);
 	if (!buffer) {
 		fprintf(stderr, "Memory error!");
-        fclose(ptr_myfile);
+		fclose(ptr_myfile);
 		return(8);
 	}
 
@@ -80,16 +80,9 @@ int main(int argc, char **argv) {
 			if (bytesread == rowlen) {
 
 				//printf("Row: %d; Length: %d\n", rownum, rowlen);
-				
+
 				// calculate here
 				numofcols = CalcNumberColumns(buffer, rowlen, indicator, columns);
-
-				// clear buffer
-				int i;
-				char *p = buffer;
-				for (i = 0; i < rowlen; i++) {
-					*p++ = 0x00;
-				}
 
 				if (printnumcols == 0) {
 					printnumcols = numofcols;

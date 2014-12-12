@@ -3,6 +3,8 @@ tptbintestfile
 tptbinview
 tptbinslice
 tptbinrc
+tptbincut
+tptbin2csv
 *.bin
 *.o
 .DS_Store

@@ -6,8 +6,6 @@
 #include <ctype.h>
 #include "CalcNumberColumns.h"
 
-#define MAXBUF 1000000
-
 int main(int argc, char **argv) {
 
 	int c;

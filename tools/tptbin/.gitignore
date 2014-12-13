@@ -4,7 +4,7 @@ tptbinview
 tptbinslice
 tptbinrc
 tptbincut
-*.bin
+*.tptbin
 *.o
 .DS_Store
 ._.DS_Store

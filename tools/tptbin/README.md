@@ -43,7 +43,7 @@ Arguments are optional:
  -f = from column number
  -t = to column number (must be greater or equal than from column number)
  -s = select explicitly columns (separate with comma, multiple nominations allowed)
- -q = quote every column the that characters (up to 5 characters allowed)
+ -q = quote every column with that characters (up to 5 characters allowed)
  -d = delimiter between columns (up to 5 characters allowed, if omitted, semicolon is used)
  -i = Include Null Indicator bytes (if omitted, no null indicator)
  -h = short help for invocation

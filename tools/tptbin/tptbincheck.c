@@ -1,10 +1,11 @@
 #include "Standards.h"
+#include "CalcNumberColumns.h"
+#include "isInt.h"
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 #include <getopt.h>
 #include <ctype.h>
-#include "CalcNumberColumns.h"
 
 int main(int argc, char **argv) {
 
@@ -25,6 +26,10 @@ int main(int argc, char **argv) {
 	while ((c = getopt (argc, argv, "c:hi")) != -1) {
 		switch (c) {
 			case 'c':
+				if (isInt(optarg) == 1) {
+					printf("Argument of \"-c\" is not numeric!\n");
+					return(1);
+				}
 				columns = atoi(optarg);
 				break;
 			case 'i':

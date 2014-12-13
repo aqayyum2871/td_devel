@@ -1,10 +1,11 @@
 #include "Standards.h"
+#include "CalcNumberColumns.h"
+#include "isInt.h"
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 #include <getopt.h>
 #include <ctype.h>
-#include "CalcNumberColumns.h"
 
 int main(int argc, char **argv) {
 
@@ -35,12 +36,20 @@ int main(int argc, char **argv) {
 				strncpy(delimiter, optarg, sizeof(delimiter));
 				break;
 			case 'c':
+				if (isInt(optarg) == 1) {
+					printf("Argument of \"-c\" is not numeric!\n");
+					return(1);
+				}
 				columns = atoi(optarg);
 				break;
 			case 'q':
 				strncpy(quotechar, optarg, sizeof(quotechar)-1);
 				break;
 			case 'f':
+				if (isInt(optarg) == 1) {
+					printf("Argument of \"-f\" is not numeric!\n");
+					return(1);
+				}
 				fromcol = atoi(optarg);
 				if (fromcol > 0 && tocol > 0 && fromcol <= tocol) {
 					for (i = fromcol -1; i < tocol; i++) {
@@ -52,6 +61,10 @@ int main(int argc, char **argv) {
 				indicator = 1;
 				break;
 			case 't':
+				if (isInt(optarg) == 1) {
+					printf("Argument of \"-t\" is not numeric!\n");
+					return(1);
+				}
 				tocol = atoi(optarg);
 				if (fromcol > 0 && tocol > 0 && fromcol <= tocol) {
 					for (i = fromcol -1; i < tocol; i++) {
@@ -62,12 +75,16 @@ int main(int argc, char **argv) {
 			case 's':
 				token = strtok(optarg, ",");
 				while (token) {
+					if (isInt(token) == 1) {
+						printf("Argument of \"-s\" is not numeric!\n");
+						return(1);
+					}
 					selectcol[iCols++] = atoi(token);
 					token = strtok(NULL, ",");
 				}
 				break;
 			case 'h':
-				printf("usage: %s [-f fromcolumn] [-t tocolumn] [-c numofcolumns] [-s selectcolumns] [-q quotechar] [-h] [-i] filename\n", argv[0]);
+				printf("usage: %s [-f fromcolumn] [-t tocolumn] [-c numofcolumns] [-s selectcolumns] [-q quotechar] [-d delimiter] [-h] [-i] filename\n", argv[0]);
 				return(1);
 				break;
 			case '?':

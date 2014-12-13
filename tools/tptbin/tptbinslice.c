@@ -1,4 +1,5 @@
 #include "Standards.h"
+#include "isInt.h"
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -17,9 +18,17 @@ int main(int argc, char **argv) {
 	while ((c = getopt (argc, argv, "f:t:h")) != -1) {
 		switch (c) {
 			case 'f':
+				if (isInt(optarg) == 1) {
+					printf("Argument of \"-f\" is not numeric!\n");
+					return(1);
+				}
 				fromrow = atoi(optarg);
 				break;
 			case 't':
+				if (isInt(optarg) == 1) {
+					printf("Argument of \"-t\" is not numeric!\n");
+					return(1);
+				}
 				torow = atoi(optarg);
 				break;
 			case 'h':

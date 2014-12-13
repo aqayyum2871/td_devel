@@ -1,4 +1,5 @@
 #include "Standards.h"
+#include "isInt.h"
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -22,12 +23,24 @@ int main(int argc, char **argv) {
 	while ((c = getopt (argc, argv, "c:r:m:hi")) != -1) {
 		switch (c) {
 			case 'c':
+				if (isInt(optarg) == 1) {
+					printf("Argument of \"-c\" is not numeric!\n");
+					return(1);
+				}
 				numcols = atoi(optarg);
 				break;
 			case 'r':
+				if (isInt(optarg) == 1) {
+					printf("Argument of \"-r\" is not numeric!\n");
+					return(1);
+				}
 				numrows = atoi(optarg);
 				break;
 			case 'm':
+				if (isInt(optarg) == 1) {
+					printf("Argument of \"-m\" is not numeric!\n");
+					return(1);
+				}
 				if (strlen(text) > atoi(optarg)) {
 					maxlen = atoi(optarg);
 				}

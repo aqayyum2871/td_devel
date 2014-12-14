@@ -72,7 +72,7 @@ int main(int argc, char **argv) {
 			rowcount++;
 		}
 
-		fprintf(stdout, "%d %s\n", rowcount, "total");
+		printf("%d %s\n", rowcount, "total");
 
 	} else {
  
@@ -113,7 +113,7 @@ int main(int argc, char **argv) {
 			fclose(fp);
 
 			if (lreaderror == 0) {
-				fprintf(stdout, "%d %s\n", rowcount, filename);
+				printf("%d %s\n", rowcount, filename);
 				filecount++;
 				sumrowcount += rowcount;
 			}
@@ -121,7 +121,7 @@ int main(int argc, char **argv) {
 		}
 
 		if (filecount > 1) {
-			fprintf(stdout, "%d %s\n", sumrowcount, "total");
+			printf("%d %s\n", sumrowcount, "total");
 		}
 
 	}

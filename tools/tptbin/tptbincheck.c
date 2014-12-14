@@ -27,7 +27,7 @@ int main(int argc, char **argv) {
 		switch (c) {
 			case 'c':
 				if (isInt(optarg) == 1) {
-					printf("Argument of \"-c\" is not numeric!\n");
+					fprintf(stderr, "Argument of \"-c\" is not numeric!\n");
 					return(1);
 				}
 				columns = atoi(optarg);
@@ -36,7 +36,7 @@ int main(int argc, char **argv) {
 				indicator = 1;
 				break;
 			case 'h':
-				printf("usage: %s [-c numcols] [-i] [-h] filename\n", argv[0]);
+				fprintf(stderr, "usage: %s [-c numcols] [-i] [-h] filename\n", argv[0]);
 				return(1);
 				break;
 			case '?':
@@ -56,7 +56,7 @@ int main(int argc, char **argv) {
 			return(1);
 		}
 	} else {
-		printf("You need to specify one file to check!\n");
+		fprintf(stderr, "You need to specify one file to check!\n");
 		return(1);
 	}
 
@@ -100,32 +100,32 @@ int main(int argc, char **argv) {
 
 				if (numofcols == -1) {
 					// internal buffer error
-					printf("%d: Internal Error!\n", rownum + 1);
+					fprintf(stderr, "%d: Internal Error!\n", rownum + 1);
 					exit = 7;
 					break;
 				} else if (numofcols == -2) {
 					// maximum number of supported columns reached
-					printf("%d: No number of columns determined. Reached maximum column count.\n", rownum + 1);
+					fprintf(stderr, "%d: No number of columns determined. Reached maximum column count.\n", rownum + 1);
 					exit = 6;
 					break;
 				} else if (numofcols == -3) {
 					// offset reached length of row
-					printf("%d: No number of columns determined. Reached record len.\n", rownum + 1);
+					fprintf(stderr, "%d: No number of columns determined. Reached record len.\n", rownum + 1);
 					exit = 5;
 					break;
 				} else if (numofcols == -4) {
 					// Indicator, number of columns, but no record format found
-					printf("%d: Indicator, number of columns given, but no correct record format found!\n", rownum + 1);
+					fprintf(stderr, "%d: Indicator, number of columns given, but no correct record format found!\n", rownum + 1);
 					exit = 8;
 					break;
 				} else if (numofcols == -5) {
 					// No indicator, no number of columns, no record format found
-					printf("%d: No indicator, no number of columns given. No correct record format found!\n", rownum + 1);
+					fprintf(stderr, "%d: No indicator, no number of columns given. No correct record format found!\n", rownum + 1);
 					exit = 9;
 					break;
 				} else if (numofcols == -6) {
 					// No indicator, number of columns, no record format found
-					printf("%d: No indicator, number of columns given, but no correct record format found!\n", rownum + 1);
+					fprintf(stderr, "%d: No indicator, number of columns given, but no correct record format found!\n", rownum + 1);
 					exit = 10;
 					break;
 				}
@@ -145,7 +145,7 @@ int main(int argc, char **argv) {
 				}
 
 				// row len definition in file does not meet actual row len
-				printf("Row %d: Row len definition in file does not meet actual row len\n", rownum);
+				fprintf(stderr, "Row %d: Row len definition in file does not meet actual row len\n", rownum);
 				exit = 3;
 				break;
 
@@ -165,11 +165,11 @@ int main(int argc, char **argv) {
 		} else {
 
 			if (printnumcols > 0) {
-				printf("%d columns, rows %d to %d\n", printnumcols, printnumrows + 1, rownum);
+				printf("%d columns for rows %d to %d\n", printnumcols, printnumrows + 1, rownum);
 			}
 
 			// not able to read row len definition in file
-			printf("Row %d: Not able to read row len definition in file\n", rownum);
+			fprintf(stderr, "Row %d: Not able to read row len definition in file\n", rownum);
 			exit = 1;
 			break;
 

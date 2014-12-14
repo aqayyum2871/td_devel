@@ -24,21 +24,21 @@ int main(int argc, char **argv) {
 		switch (c) {
 			case 'c':
 				if (isInt(optarg) == 1) {
-					printf("Argument of \"-c\" is not numeric!\n");
+					fprintf(stderr, "Argument of \"-c\" is not numeric!\n");
 					return(1);
 				}
 				numcols = atoi(optarg);
 				break;
 			case 'r':
 				if (isInt(optarg) == 1) {
-					printf("Argument of \"-r\" is not numeric!\n");
+					fprintf(stderr, "Argument of \"-r\" is not numeric!\n");
 					return(1);
 				}
 				numrows = atoi(optarg);
 				break;
 			case 'm':
 				if (isInt(optarg) == 1) {
-					printf("Argument of \"-m\" is not numeric!\n");
+					fprintf(stderr, "Argument of \"-m\" is not numeric!\n");
 					return(1);
 				}
 				if (strlen(text) > atoi(optarg)) {
@@ -46,7 +46,7 @@ int main(int argc, char **argv) {
 				}
 				break;
 			case 'h':
-				printf("usage: %s [-c numcols] [-r numrows] [-m maxcollen] [-i] [-h] filename\n", argv[0]);
+				fprintf(stderr, "usage: %s [-c numcols] [-r numrows] [-m maxcollen] [-i] [-h] filename\n", argv[0]);
 				return(1);
 				break;
 			case 'i':
@@ -94,7 +94,7 @@ int main(int argc, char **argv) {
 	ptr_myfile=fopen(argv[optind],"a");
 	
 	if (!ptr_myfile) {
-		printf("Unable to open file!");
+		fprintf(stderr, "Unable to open file!");
 		return(3);
 	}
 

@@ -19,20 +19,20 @@ int main(int argc, char **argv) {
 		switch (c) {
 			case 'f':
 				if (isInt(optarg) == 1) {
-					printf("Argument of \"-f\" is not numeric!\n");
+					fprintf(stderr, "Argument of \"-f\" is not numeric!\n");
 					return(1);
 				}
 				fromrow = atoi(optarg);
 				break;
 			case 't':
 				if (isInt(optarg) == 1) {
-					printf("Argument of \"-t\" is not numeric!\n");
+					fprintf(stderr, "Argument of \"-t\" is not numeric!\n");
 					return(1);
 				}
 				torow = atoi(optarg);
 				break;
 			case 'h':
-				printf("usage: %s [-f fromrow] [-t torow] [-h] filename\n", argv[0]);
+				fprintf(stderr, "usage: %s [-f fromrow] [-t torow] [-h] filename\n", argv[0]);
 				return(1);
 				break;
 			case '?':
@@ -91,14 +91,14 @@ int main(int argc, char **argv) {
 
 			} else if (bytesread == 0) {
 
-				printf("Row %d: Error in row. Rowsize found, but no data\n", rownum);
+				fprintf(stderr, "Row %d: Error in row. Rowsize found, but no data\n", rownum);
 				exit = 4;
 				break;
 
 			} else {
 
 				// row len definition in file does not meet actual row len
-				printf("Row %d: Row len definition in file does not meet actual row len\n", rownum);
+				fprintf(stderr, "Row %d: Row len definition in file does not meet actual row len\n", rownum);
 				exit = 3;
 				break;
 
@@ -114,7 +114,7 @@ int main(int argc, char **argv) {
 		} else {
 
 			// not able to read row len definition in file
-			printf("Row %d: Not able to read row len definition in file\n", rownum);
+			fprintf(stderr, "Row %d: Not able to read row len definition in file\n", rownum);
 			exit = 1;
 			break;
 

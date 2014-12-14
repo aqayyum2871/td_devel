@@ -37,7 +37,7 @@ int main(int argc, char **argv) {
 				break;
 			case 'c':
 				if (isInt(optarg) == 1) {
-					printf("Argument of \"-c\" is not numeric!\n");
+					fprintf(stderr, "Argument of \"-c\" is not numeric!\n");
 					return(1);
 				}
 				columns = atoi(optarg);
@@ -47,7 +47,7 @@ int main(int argc, char **argv) {
 				break;
 			case 'f':
 				if (isInt(optarg) == 1) {
-					printf("Argument of \"-f\" is not numeric!\n");
+					fprintf(stderr, "Argument of \"-f\" is not numeric!\n");
 					return(1);
 				}
 				fromcol = atoi(optarg);
@@ -62,7 +62,7 @@ int main(int argc, char **argv) {
 				break;
 			case 't':
 				if (isInt(optarg) == 1) {
-					printf("Argument of \"-t\" is not numeric!\n");
+					fprintf(stderr, "Argument of \"-t\" is not numeric!\n");
 					return(1);
 				}
 				tocol = atoi(optarg);
@@ -76,7 +76,7 @@ int main(int argc, char **argv) {
 				token = strtok(optarg, ",");
 				while (token) {
 					if (isInt(token) == 1) {
-						printf("Argument of \"-s\" is not numeric!\n");
+						fprintf(stderr, "Argument of \"-s\" is not numeric!\n");
 						return(1);
 					}
 					selectcol[iCols++] = atoi(token);
@@ -84,7 +84,7 @@ int main(int argc, char **argv) {
 				}
 				break;
 			case 'h':
-				printf("usage: %s [-f fromcolumn] [-t tocolumn] [-c numofcolumns] [-s selectcolumns] [-q quotechar] [-d delimiter] [-h] [-i] filename\n", argv[0]);
+				fprintf(stderr, "usage: %s [-f fromcolumn] [-t tocolumn] [-c numofcolumns] [-s selectcolumns] [-q quotechar] [-d delimiter] [-h] [-i] filename\n", argv[0]);
 				return(1);
 				break;
 			case '?':
@@ -140,7 +140,7 @@ int main(int argc, char **argv) {
 					// calculate here only if no number of columns are given
 					numofcols = CalcNumberColumns(buffer, rowlen, indicator, columns);
 					if (numofcols < 1) {
-						printf("Cannot determine the number of columns. Execute again and give number of columns!\n");
+						fprintf(stderr, "Cannot determine the number of columns. Execute again and give number of columns!\n");
 						exit = 5;
 						break;
 					}
@@ -209,14 +209,14 @@ int main(int argc, char **argv) {
 
 			} else if (bytesread == 0) {
 
-				printf("Row %d: Error in row. Rowsize found, but no data\n", rownum);
+				fprintf(stderr, "Row %d: Error in row. Rowsize found, but no data\n", rownum);
 				exit = 4;
 				break;
 
 			} else {
 
 				// row len definition in file does not meet actual row len
-				printf("Row %d: Row len definition in file does not meet actual row len\n", rownum);
+				fprintf(stderr, "Row %d: Row len definition in file does not meet actual row len\n", rownum);
 				exit = 3;
 				break;
 
@@ -232,7 +232,7 @@ int main(int argc, char **argv) {
 		} else {
 
 			// not able to read row len definition in file
-			printf("Row %d: Not able to read row len definition in file\n", rownum);
+			fprintf(stderr, "Row %d: Not able to read row len definition in file\n", rownum);
 			exit = 1;
 			break;
 

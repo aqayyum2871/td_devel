@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include <getopt.h>
+#include <unistd.h>
 #include <ctype.h>
 
 int main(int argc, char **argv) {
@@ -23,7 +23,7 @@ int main(int argc, char **argv) {
 
 	opterr = 0;
 
-	while ((c = getopt (argc, argv, "c:hi")) != -1) {
+	while ((c = getopt (argc, argv, ":c:hi")) != -1) {
 		switch (c) {
 			case 'c':
 				if (isInt(optarg) == 1) {
@@ -39,10 +39,11 @@ int main(int argc, char **argv) {
 				fprintf(stderr, "usage: %s [-c numcols] [-i] [-h] filename\n", argv[0]);
 				return(1);
 				break;
+			case ':':
+				fprintf (stderr, "Option -%c requires an argument.\n", optopt);
+				return(1);
 			case '?':
-				if (optopt == 'c')
-					fprintf (stderr, "Option -%c requires an argument.\n", optopt);
-				else if (isprint (optopt))
+				if (isprint (optopt))
 					fprintf (stderr, "Unknown option '-%c'.\n", optopt);
 				else
 					fprintf (stderr, "Unknown option character '\\x%x'.\n", optopt);
@@ -50,13 +51,9 @@ int main(int argc, char **argv) {
 		}
 	}
 
-	if (optind < argc) {
-		if ((ptr_myfile=fopen(argv[optind],"r")) == NULL) {
-			fprintf(stderr, "Please, provide file in tptbin format!\n");
-			return(1);
-		}
-	} else {
-		fprintf(stderr, "You need to specify one file to check!\n");
+	ptr_myfile=fopen(argv[optind], "r");
+	if (ptr_myfile == NULL) {
+		fprintf(stderr, "Please, provide file in tptbin format!\n");
 		return(1);
 	}
 

@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include <getopt.h>
+#include <unistd.h>
 #include <ctype.h>
 
 int main(int argc, char **argv) {
@@ -20,7 +20,7 @@ int main(int argc, char **argv) {
 	char indicator = 0;
 	int numindic = 0;
 
-	while ((c = getopt (argc, argv, "c:r:m:hi")) != -1) {
+	while ((c = getopt (argc, argv, ":c:r:m:hi")) != -1) {
 		switch (c) {
 			case 'c':
 				if (isInt(optarg) == 1) {
@@ -52,10 +52,11 @@ int main(int argc, char **argv) {
 			case 'i':
 				indicator = 1;
 				break;
+			case ':':
+				fprintf (stderr, "Option -%c requires an argument.\n", optopt);
+				return(1);
 			case '?':
-				if (optopt == 'c' || optopt == 'r' || optopt == 'm')
-					fprintf (stderr, "Option -%c requires an argument.\n", optopt);
-				else if (isprint (optopt))
+				if (isprint (optopt))
 					fprintf (stderr, "Unknown option '-%c'.\n", optopt);
 				else
 					fprintf (stderr, "Unknown option character '\\x%x'.\n", optopt);
@@ -91,8 +92,7 @@ int main(int argc, char **argv) {
 		return(2);
 	}
 
-	ptr_myfile=fopen(argv[optind],"a");
-	
+	ptr_myfile=fopen(argv[optind], "a");
 	if (!ptr_myfile) {
 		fprintf(stderr, "Unable to open file!");
 		return(3);

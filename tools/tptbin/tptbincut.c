@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include <getopt.h>
+#include <unistd.h>
 #include <ctype.h>
 
 int main(int argc, char **argv) {
@@ -28,11 +28,13 @@ int main(int argc, char **argv) {
 		selectcol[i]=0;
 	}
 
-	opterr = 0;
-
-	while ((c = getopt (argc, argv, "hif:t:c:s:d:q:")) != -1) {
+	while ((c = getopt (argc, argv, ":f:t:c:s:d:q:hi")) != -1) {
 		switch (c) {
 			case 'd':
+				if (strlen(optarg) > 10) {
+					fprintf(stderr, "Maximum of 10 characters for delimiter allowed!\n");
+					return(1);
+				}
 				strncpy(delimiter, optarg, sizeof(delimiter));
 				break;
 			case 'c':
@@ -43,6 +45,10 @@ int main(int argc, char **argv) {
 				columns = atoi(optarg);
 				break;
 			case 'q':
+				if (strlen(optarg) > 10) {
+					fprintf(stderr, "Maximum of 10 characters for quote sign allowed!\n");
+					return(1);
+				}
 				strncpy(quotechar, optarg, sizeof(quotechar)-1);
 				break;
 			case 'f':
@@ -86,7 +92,9 @@ int main(int argc, char **argv) {
 			case 'h':
 				fprintf(stderr, "usage: %s [-f fromcolumn] [-t tocolumn] [-c numofcolumns] [-s selectcolumns] [-q quotechar] [-d delimiter] [-h] [-i] filename\n", argv[0]);
 				return(1);
-				break;
+			case ':':
+				fprintf (stderr, "Option -%c requires an argument.\n", optopt);
+				return(1);
 			case '?':
 				if (optopt == 'c' || optopt == 'f' || optopt == 't' || optopt == 's' || optopt == 'd' || optopt == 'q')
 					fprintf (stderr, "Option -%c requires an argument.\n", optopt);
@@ -102,13 +110,10 @@ int main(int argc, char **argv) {
 	char *buffer;
 	unsigned int rownum = 0;
 
-	for (i = optind; i < argc; i++) {
-		if ((ptr_myfile=fopen(argv[i],"r")) == NULL) {
-			fprintf(stderr, "Please, provide file in tptbin format!\n");
-			return(1);
-		} else {
-			break;
-		}
+	ptr_myfile=fopen(argv[optind], "r");
+	if (ptr_myfile == NULL) {
+		fprintf(stderr, "Please, provide file in tptbin format!\n");
+		return(1);
 	}
 
 	// allocate memory for one record

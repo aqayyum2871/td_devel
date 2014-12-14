@@ -3,19 +3,18 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include <getopt.h>
+#include <unistd.h>
 #include <ctype.h>
 
 int main(int argc, char **argv) {
 
 	unsigned int fromrow = 1;
 	unsigned int torow = 1;
-	unsigned int i;
 	int c;
 
 	opterr = 0;
 
-	while ((c = getopt (argc, argv, "f:t:h")) != -1) {
+	while ((c = getopt (argc, argv, ":f:t:h")) != -1) {
 		switch (c) {
 			case 'f':
 				if (isInt(optarg) == 1) {
@@ -34,11 +33,11 @@ int main(int argc, char **argv) {
 			case 'h':
 				fprintf(stderr, "usage: %s [-f fromrow] [-t torow] [-h] filename\n", argv[0]);
 				return(1);
-				break;
+			case ':':
+				fprintf (stderr, "Option -%c requires an argument.\n", optopt);
+				return(1);
 			case '?':
-				if (optopt == 'f' || optopt == 't' || optopt == 'm')
-					fprintf (stderr, "Option -%c requires an argument.\n", optopt);
-				else if (isprint (optopt))
+				if (isprint (optopt))
 					fprintf (stderr, "Unknown option '-%c'.\n", optopt);
 				else
 					fprintf (stderr, "Unknown option character '\\x%x'.\n", optopt);
@@ -50,13 +49,10 @@ int main(int argc, char **argv) {
 	char *buffer;
 	unsigned int rownum = 0;
 
-	for (i = optind; i < argc; i++) {
-		if ((ptr_myfile=fopen(argv[i],"r")) == NULL) {
-			fprintf(stderr, "Please, provide file in tptbin format!\n");
-			return(1);
-		} else {
-			break;
-		}
+	ptr_myfile=fopen(argv[optind], "r");
+	if (ptr_myfile == NULL) {
+		fprintf(stderr, "Please, provide file in tptbin format!\n");
+		return(1);
 	}
 	
 	// allocate memory for one record

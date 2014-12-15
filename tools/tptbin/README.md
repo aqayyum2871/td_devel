@@ -18,6 +18,34 @@ make clean
 make all
 ```
 
+# tptbin2csv
+
+Features:
+
+* Cut columns from file. Choose from a range (-a, -b), or explicitly select columns (-c).
+* Cut rows from file. Choose from a range (-f, -t), or explicitly select rows (-r). A maximum of 10000 rows with select allowed.
+* Define field delimiter (-d) (up to ten bytes)
+* Define quoting sign (-q) (up to ten bytes)
+
+If no options (-c, -a, -b) are given, all columns are printed.
+
+If no options (-r, -f, -t) are given, all rows are printed.
+
+Arguments are optional:
+```
+ -n = number of columns (tptbincut will not try to determine the number of columns)
+ -a = from column number
+ -b = to column number (must be greater or equal than from column number)
+ -c = select explicitly columns (separate with comma, multiple nominations allowed)
+ -f = from row number
+ -t = to row number (must be greater or equal than from row number)
+ -r = select explicitly rows (separate with comma, multiple nominations will be removed)
+ -q = quote every column with that characters (up to 10 characters allowed)
+ -d = delimiter between columns (up to 10 characters allowed, if omitted, semicolon is used)
+ -i = Include Null Indicator bytes (if omitted, no null indicator)
+ -h = short help for invocation
+```
+
 # tptbincheck
 
 Check of file consistency and some stats.
@@ -29,40 +57,9 @@ Arguments are optional:
  -h = short help for invocation
 ```
 
-# tptbincut
-
-Cut columns from file. Choose from a range (-f, -t), or explicitly select columns (-s).
-
-If no options (-s, -f, -t) are given, all columns are printed.
-
-Can also be used to generate CSV file.
-
-Arguments are optional:
-```
- -c = number of columns (tptbincut will not try to determine the number of columns)
- -f = from column number
- -t = to column number (must be greater or equal than from column number)
- -s = select explicitly columns (separate with comma, multiple nominations allowed)
- -q = quote every column with that characters (up to 5 characters allowed)
- -d = delimiter between columns (up to 5 characters allowed, if omitted, semicolon is used)
- -i = Include Null Indicator bytes (if omitted, no null indicator)
- -h = short help for invocation
-```
-
 # tptbinrc
 
 Rowcount of TPT binary files. Output is like from `wc -l`
-
-# tptbinslice
-
-Cut out certain rows of the data file.
-
-Arguments are optional:
-```
- -f = from row (if omitted, from row 1)
- -t = to row (if omitted, to row 1)
- -h = short help for invocation
-```
 
 # tptbintestfile
 

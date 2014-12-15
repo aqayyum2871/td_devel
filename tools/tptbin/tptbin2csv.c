@@ -23,7 +23,7 @@ int main(int argc, char **argv) {
 	unsigned int selectrow[10000];
 	int c;
 	char *token;
-	char delimiter[11] = ";"; // maximum 5 bytes as delimiter
+	char delimiter[11] = ";";
 	char quotechar[11] = "";
 	char selectrows = 0;
 	char rangerows = 0;
@@ -120,8 +120,8 @@ int main(int argc, char **argv) {
 			case 'r':
 				token = strtok(optarg, ",");
 				while (token) {
-					if (iRows >= 1000) {
-						fprintf(stderr, "Only 1000 rows supported for select!\n");
+					if (iRows >= 10000) {
+						fprintf(stderr, "Only 10000 rows supported for select!\n");
 						return(1);
 					} else if (isInt(token) == 1) {
 						fprintf(stderr, "Argument of \"-r\" is not numeric!\n");

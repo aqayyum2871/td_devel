@@ -1,9 +1,8 @@
 tptbincheck
 tptbintestfile
 tptbinview
-tptbinslice
 tptbinrc
-tptbincut
+tptbin2csv
 *.tptbin
 *.o
 .DS_Store

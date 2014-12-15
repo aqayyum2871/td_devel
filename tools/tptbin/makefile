@@ -1,5 +1,5 @@
-OBJ = tptbincheck.o CalcNumberColumns.o tptbinview.o tptbintestfile.o tptbinslice.o isBitSet.o tptbinrc.o tptbincut.o isInt.o
-EXE = tptbincheck tptbintestfile tptbinslice tptbinrc tptbincut
+OBJ = tptbincheck.o CalcNumberColumns.o tptbinview.o tptbintestfile.o isBitSet.o tptbinrc.o isInt.o UniqSortIntArray.o tptbin2csv.o
+EXE = tptbincheck tptbintestfile tptbinrc tptbin2csv
 
 all: $(EXE)
 
@@ -12,11 +12,11 @@ install:
 %.o: %.c
 	gcc -Wall -g -c $<
 
+tptbin2csv: tptbin2csv.o CalcNumberColumns.o isBitSet.o isInt.o UniqSortIntArray.o
+	gcc -o tptbin2csv tptbin2csv.o CalcNumberColumns.o isBitSet.o isInt.o UniqSortIntArray.o
+
 tptbincheck: tptbincheck.o CalcNumberColumns.o isBitSet.o isInt.o
 	gcc -o tptbincheck tptbincheck.o CalcNumberColumns.o isBitSet.o isInt.o
-
-tptbincut: tptbincut.o CalcNumberColumns.o isBitSet.o isInt.o
-	gcc -o tptbincut tptbincut.o CalcNumberColumns.o isBitSet.o isInt.o
 
 tptbinview: tptbinview.o CalcNumberColumns.o isBitSet.o
 	gcc -o tptbinview tptbinview.o CalcNumberColumns.o isBitSet.o -lncurses
@@ -24,8 +24,8 @@ tptbinview: tptbinview.o CalcNumberColumns.o isBitSet.o
 tptbintestfile: tptbintestfile.o isInt.o
 	gcc -o tptbintestfile tptbintestfile.o isInt.o
 
-tptbinslice: tptbinslice.o isInt.o
-	gcc -o tptbinslice tptbinslice.o isInt.o
-
 tptbinrc: tptbinrc.o
 	gcc -o tptbinrc tptbinrc.c
+
+test: test.o isInt.o UniqSortIntArray.o
+	gcc -o test test.o isInt.o UniqSortIntArray.o

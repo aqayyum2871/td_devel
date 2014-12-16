@@ -38,7 +38,7 @@ int main(int argc, char **argv) {
 	unsigned int selectrow[MAXNUMSELROWS];
 	int c;
 	char *token;
-	char delimiter[MAXLENDELIM + 1] = ";";
+	char delimiter[MAXLENDELIM + 1] = ",";
 	char quotechar[MAXLENQUOTE + 1] = "";
 	char selectrows = 0;
 	char rangerows = 0;

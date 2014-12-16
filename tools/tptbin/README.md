@@ -40,8 +40,8 @@ Arguments are optional:
  -f = from row number
  -t = to row number (must be greater or equal than from row number)
  -r = select explicitly rows (separate with comma, multiple nominations will be removed)
- -q = quote every column with that characters (up to 10 characters allowed)
- -d = delimiter between columns (up to 10 characters allowed, if omitted, semicolon is used)
+ -q = quote every column with that characters
+ -d = delimiter between columns (if omitted, comma is used)
  -i = Include Null Indicator bytes (if omitted, no null indicator)
  -h = short help for invocation
 ```

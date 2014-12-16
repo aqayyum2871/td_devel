@@ -8,12 +8,6 @@
 	and so on ....
 	The number of "blocks" gives the number of actual rows.
 	The output is very similar to the output of the standard tool "wc -l"
-	For reading a file, a seek ahead without buffering the data is possible.
-	For reading from stdin, a seek ahead is not possible. The data must be
-	loaded into memory. Therefore, the rowlen is essential. This release
-	supports length up to 100000 bytes (defined in MAXROWLEN).
-	For longer rows, the buffer must be allocated via malloc, and the software
-	changed.
 	Copyright (c) 2014 Andreas Wenzel, Teradata Germany
 	License: You are free to use and adopt this program for your particular 
 	purpose if you are a Teradata customer with a valid Teradata RDBMS license. 

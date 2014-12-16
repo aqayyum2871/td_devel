@@ -8,6 +8,21 @@
 #include <unistd.h>
 #include <ctype.h>
 
+void usage(char **whoami) {
+	fprintf(stderr, "usage: %s [-n val] [-i] [-a val] [-b val] [-c list] [-f val] [-t val] [-r list] [-q literal] [-d literal] filename\n", *whoami);
+	fprintf(stderr, "       %s -h\n", *whoami);
+	fprintf(stderr, "       %*s -n value   = help the tool => give number of columns in file\n", (int)strlen(*whoami), " ");
+	fprintf(stderr, "       %*s -i         = null indicator mode (omit is no null indicator mode)\n", (int)strlen(*whoami), " ");
+	fprintf(stderr, "       %*s -a value   = print columns beginning with\n", (int)strlen(*whoami), " ");
+	fprintf(stderr, "       %*s -b value   = print columns up to (must be greater or equal -a value)\n", (int)strlen(*whoami), " ");
+	fprintf(stderr, "       %*s -c list    = print column list (seperator is comma)\n", (int)strlen(*whoami), " ");
+	fprintf(stderr, "       %*s -f value   = print rows beginning with\n", (int)strlen(*whoami), " ");
+	fprintf(stderr, "       %*s -t value   = print rows up to (must be greater or equal -f value)\n", (int)strlen(*whoami), " ");
+	fprintf(stderr, "       %*s -r list    = print row list (seperator is comma)\n", (int)strlen(*whoami), " ");
+	fprintf(stderr, "       %*s -q literal = use character(s) as quote sign (up to %d)\n", (int)strlen(*whoami), " ", MAXLENQUOTE);
+	fprintf(stderr, "       %*s -d literal = use character(s) as delimiter sign (up to %d)\n", (int)strlen(*whoami), " ", MAXLENDELIM);
+}
+
 int main(int argc, char **argv) {
 
 	unsigned int fromcol = 0;
@@ -20,11 +35,11 @@ int main(int argc, char **argv) {
 	unsigned int i, *row;
 	unsigned int iCols = 0, iRows = 0;
 	unsigned short selectcol[MAXCOLS];
-	unsigned int selectrow[10000];
+	unsigned int selectrow[MAXNUMSELROWS];
 	int c;
 	char *token;
-	char delimiter[11] = ";";
-	char quotechar[11] = "";
+	char delimiter[MAXLENDELIM + 1] = ";";
+	char quotechar[MAXLENQUOTE + 1] = "";
 	char selectrows = 0;
 	char rangerows = 0;
 	int exit = -1;
@@ -40,8 +55,8 @@ int main(int argc, char **argv) {
 	while ((c = getopt (argc, argv, ":a:b:f:t:c:n:r:d:q:hi")) != -1) {
 		switch (c) {
 			case 'd':
-				if (strlen(optarg) > 10) {
-					fprintf(stderr, "Maximum of 10 characters for delimiter allowed!\n");
+				if (strlen(optarg) > MAXLENDELIM) {
+					fprintf(stderr, "Maximum of %d characters for delimiter allowed!\n", MAXLENDELIM);
 					return(1);
 				}
 				strncpy(delimiter, optarg, sizeof(delimiter));
@@ -54,8 +69,8 @@ int main(int argc, char **argv) {
 				columns = atoi(optarg);
 				break;
 			case 'q':
-				if (strlen(optarg) > 10) {
-					fprintf(stderr, "Maximum of 10 characters for quote sign allowed!\n");
+				if (strlen(optarg) > MAXLENQUOTE) {
+					fprintf(stderr, "Maximum of %d characters for quote sign allowed!\n", MAXLENQUOTE);
 					return(1);
 				}
 				strncpy(quotechar, optarg, sizeof(quotechar)-1);
@@ -103,6 +118,7 @@ int main(int argc, char **argv) {
 				fromrow = atoi(optarg);
 				if (fromrow > 0 && torow > 0 && fromrow > torow) {
 					fprintf(stderr, "From row must be less or equal to row!\n");
+					return(1);
 				}
 				rangerows++;
 				break;
@@ -114,14 +130,15 @@ int main(int argc, char **argv) {
 				torow = atoi(optarg);
 				if (fromrow > 0 && torow > 0 && fromrow > torow) {
 					fprintf(stderr, "From row must be less or equal to row!\n");
+					return(1);
 				}
 				rangerows++;
 				break;
 			case 'r':
 				token = strtok(optarg, ",");
 				while (token) {
-					if (iRows >= 10000) {
-						fprintf(stderr, "Only 10000 rows supported for select!\n");
+					if (iRows >= MAXNUMSELROWS) {
+						fprintf(stderr, "Only %d rows supported for select!\n", MAXNUMSELROWS);
 						return(1);
 					} else if (isInt(token) == 1) {
 						fprintf(stderr, "Argument of \"-r\" is not numeric!\n");
@@ -138,15 +155,13 @@ int main(int argc, char **argv) {
 				indicator = 1;
 				break;
 			case 'h':
-				fprintf(stderr, "usage: %s [-s numofcolumns] [-i] [-a fromcolumn] [-b tocolumn] [-c selectcolumns] [-f fromrow] [-t torow] [-r selectrow] [-q quotechar] [-d delimiter] [-h] filename\n", argv[0]);
+				usage(&argv[0]);
 				return(1);
 			case ':':
 				fprintf (stderr, "Option -%c requires an argument.\n", optopt);
 				return(1);
 			case '?':
-				if (optopt == 'c' || optopt == 'f' || optopt == 't' || optopt == 's' || optopt == 'd' || optopt == 'q')
-					fprintf (stderr, "Option -%c requires an argument.\n", optopt);
-				else if (isprint (optopt))
+				if (isprint (optopt))
 					fprintf (stderr, "Unknown option '-%c'.\n", optopt);
 				else
 					fprintf (stderr, "Unknown option character '\\x%x'.\n", optopt);

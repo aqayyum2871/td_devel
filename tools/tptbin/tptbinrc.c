@@ -1,20 +1,15 @@
 /*
-	Rowcount for TPT binary file format
-	If reading from stdin is desired, then no argument is allowed
-	Read two bytes from the beginning of the file, this number is the row length.
-	Seek ahead for this number of bytes. This is one record.
-	Read another two bytes, this is the number of bytes for the next row.
-	Seek ahead for this number of bytes. This is another record.
-	and so on ....
-	The number of "blocks" gives the number of actual rows.
-	The output is very similar to the output of the standard tool "wc -l"
 	Copyright (c) 2014 Andreas Wenzel, Teradata Germany
-	License: You are free to use and adopt this program for your particular 
-	purpose if you are a Teradata customer with a valid Teradata RDBMS license. 
-	If you are a Teradata employee you are free to use, copy, and distribute 
-	this program to Teradata customers. If you are a Teradata employee you 
-	are also free to modify this program but, you must retain the above 
-	copyright line and this license statement.
+	License: You are free to use, adopt and modify this program for your particular
+	purpose.
+	If you are a Teradata employee you are free to use, copy, and distribute
+	this program to Teradata customers.
+	If you don't have any relationship with Teradata, you will find this tool
+	probably not very useful.
+	LICENSOR IS NOT LIABLE TO LICENSEE FOR ANY DAMAGES, INCLUDING COMPENSATORY,
+	SPECIAL, INCIDENTAL, EXEMPLARY, PUNITIVE, OR CONSEQUENTIAL DAMAGES, CONNECTED
+	WITH OR RESULTING FROM THIS LICENSE AGREEMENT OR LICENSEE'S USE OF THIS SOFTWARE.
+
 	It is appreciated, if any changes to the source code are reported
 	to the copyright holder.
 */

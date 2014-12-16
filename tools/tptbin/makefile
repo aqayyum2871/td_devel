@@ -26,6 +26,3 @@ tptbintestfile: tptbintestfile.o isInt.o
 
 tptbinrc: tptbinrc.o
 	gcc -o tptbinrc tptbinrc.c
-
-test: test.o isInt.o UniqSortIntArray.o
-	gcc -o test test.o isInt.o UniqSortIntArray.o

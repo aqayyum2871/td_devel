@@ -9,7 +9,7 @@ Every record **must** follow the format:
 3. Two byte which store the length of the next column (if field is null (indicated by null indicator)), this two bytes are still required.
 4. Content of the column
 
-No CR or else is required.
+No CR or alike is required.
 
 # Compile
 

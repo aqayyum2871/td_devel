@@ -74,6 +74,9 @@ Arguments are optional:
  -h = short help for invocation
 ```
 
+Remember, number of columns times average number of bytes per column must not exceed 65535 byte
+(two bytes unsigned) per line.
+
 # tptbinview
 
 Work in progress.

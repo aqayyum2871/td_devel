@@ -14,9 +14,9 @@
 	to the copyright holder.
 */
 
-#ifndef ISBITSET_H
-#define ISBITSET_H
+#ifndef CURSESINITIALSETUP_H
+#define CURSESINITIALSETUP_H
 
-int isBitSet (unsigned char c, int n);
+void CursesInitialSetup(struct windim *work);
 
 #endif

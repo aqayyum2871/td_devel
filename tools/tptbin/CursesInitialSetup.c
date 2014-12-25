@@ -21,10 +21,16 @@
 #include <getopt.h>
 #include <ctype.h>
 #include "CalcNumberColumns.h"
+#include "MyCurses.h"
 
 void CursesInitialSetup(struct windim *work) {
 	int screenx, screeny;
 	unsigned int i;
+
+	WINDOW *headerwin;
+	WINDOW *linenumwin;
+	WINDOW *contentwin;
+
 	initscr();
 	atexit(quit);
 

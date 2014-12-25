@@ -22,25 +22,14 @@
 #include <ctype.h>
 #include "CalcNumberColumns.h"
 #include "CursesInitialSetup.h"
-
-WINDOW *headerwin;
-WINDOW *linenumwin;
-WINDOW *contentwin;
-
-struct windim {
-	unsigned short x;
-	unsigned short y;
-};
-
-void quit() {
-	delwin(headerwin);
-	delwin(linenumwin);
-	//delwin(contentwin);
-	endwin();
-}
+#include "MyCurses.h"
 
 int main(int argc, char **argv) {
 	//int x, y;
+
+	WINDOW *headerwin;
+	WINDOW *linenumwin;
+	WINDOW *contentwin;
 
 	int c;
 	unsigned short numcols = 0;
@@ -124,7 +113,7 @@ int main(int argc, char **argv) {
 
 				// clear buffer before loading it again
 				for (i = 0; i < rowlen; i++) {
-					*p[i] = 0x00;
+					*p[i] = 0;
 				}
 
 				// calculate here

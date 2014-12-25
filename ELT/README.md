@@ -1,12 +1,15 @@
 Idea
 ====
-The idea is, to have an empty (new) TMS for ETL purposes
+The idea is, to have an empty (new) TMS for ETL purposes.
 With those two packages, you will get
+
 * git (version 2.1.2)
 * subversion (version 1.8.10)
 * SLJM (version 2.12)
 * GCFR (ETL part) (version 1.1.1 including patch 20140703)
+
 installed.
+
 The Linux Environment (folder separation for Develop, Test, Production, ...)
 will be set up. Run "setup.sh" for every Environment (free naming)
 Unix groups and base environment for SLJM will be created (as well as /etc/skel)
@@ -29,18 +32,20 @@ The main goal for this package is the installation of this packages:
 * git (version 2.1.2)
 * subversion (version 1.8.10)
 
-As well, there are some packages included, which are required by SLJM or GCFR!
+Also, there are some packages included, which are required by SLJM or GCFR!
 
 You need to have an Account at Novel, to be able to download those official RPMs for SLES11SP1:
+
+* tack-5.6-90.55.x86_64.rpm
 * libncurses6-5.6-90.55.x86_64.rpm
 * ncurses-devel-5.6-90.55.x86_64.rpm
 * perl-XML-NamespaceSupport-1.09-1.22.x86_64.rpm
 * perl-XML-Parser-2.36-1.18.x86_64.rpm
 * perl-XML-SAX-0.96-2.7.x86_64.rpm
 * perl-XML-Simple-2.18-1.15.x86_64.rpm
-* tack-5.6-90.55.x86_64.rpm
 
-The following packages are available from free download:
+The following packages are available for free download:
+
 * apr-1.5.1.tar.bz2 (http://artfiles.org/apache.org//apr/apr-1.5.1.tar.bz2)
 * apr-util-1.5.3.tar.bz2 (https://apr.apache.org/download.cgi)
 * curl-7.38.0.tar.bz2 (http://curl.haxx.se/download.html)
@@ -57,5 +62,5 @@ The following packages are available from free download:
 
 As of writing this readme, I've seen that many packages are outdated.
 I've tested with the versions mentioned here. I will try, to update them to the latest releases.
-But it will take some time. If anyone can provide me with an pull request with newer version,
+But it will take some time. If anyone can provide me with an pull request with newer versions,
 this would be highly appreciated.

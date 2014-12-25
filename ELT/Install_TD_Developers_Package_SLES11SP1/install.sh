@@ -31,9 +31,9 @@
 #   apr-util-1.5.3.tar.bz2
 #   scons-local-2.3.3.tar.gz (required only by serf-1.3.7.tar.bz2)
 #   serf-1.3.7.tar.bz2
-#   subversion-1.8.10.tar.bz2 (including sqlite-amalgamation-3080600.zip)
+#   subversion-1.8.11.tar.bz2 (including sqlite-amalgamation-3080600.zip)
 #   curl-7.38.0.tar.bz2
-#   git-2.1.2.tar.gz
+#   git-2.2.1.tar.gz
 #
 ###############################################################################
 #
@@ -374,10 +374,10 @@ execute "serf" "50.install" "scons install"
 cd ..
 
 
-execute "subversion" "10.unpack" "tar jxvf ${mydir}/subversion-1.8.10.tar.bz2"
+execute "subversion" "10.unpack" "tar jxvf ${mydir}/subversion-1.8.11.tar.bz2"
 execute "subversion" "11.unzipsqlite" "unzip -x ${mydir}/sqlite-amalgamation-3080600.zip"
-execute "subversion" "12.mvsqlite" "mv sqlite-amalgamation-3080600 subversion-1.8.10/sqlite-amalgamation"
-cd subversion-1.8.10
+execute "subversion" "12.mvsqlite" "mv sqlite-amalgamation-3080600 subversion-1.8.11/sqlite-amalgamation"
+cd subversion-1.8.11
 execute "subversion" "20.setown" "chown -R root:root ."
 execute "subversion" "30.configure" "./configure --with-apr=/usr/local/apr --with-apr-util=/usr/local/apr --with-serf=/usr/local"
 execute "subversion" "40.compile" "make"
@@ -396,8 +396,8 @@ execute "curl" "50.install" "make install"
 cd ..
 
 
-execute "git" "10.unpack" "tar zxvf ${mydir}/git-2.1.2.tar.gz"
-cd git-2.1.2
+execute "git" "10.unpack" "tar zxvf ${mydir}/git-2.2.1.tar.gz"
+cd git-2.2.1
 execute "git" "20.setown" "chown -R root:root ."
 execute "git" "30.configure" "./configure --with-curl=/usr/local"
 execute "git" "40.compile" "make"

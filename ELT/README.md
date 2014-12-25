@@ -3,8 +3,8 @@ Idea
 The idea is, to have an empty (new) TMS for ETL purposes.
 With those two packages, you will get
 
-* git (version 2.1.2)
-* subversion (version 1.8.10)
+* git (version 2.2.1)
+* subversion (version 1.8.11)
 * SLJM (version 2.12)
 * GCFR (ETL part) (version 1.1.1 including patch 20140703)
 
@@ -29,8 +29,8 @@ If you don't know, what SLJM or GCFR is, then you don't need that package.
 Install_TD_Developers_Package_SLES11SP1
 =======================================
 The main goal for this package is the installation of this packages:
-* git (version 2.1.2)
-* subversion (version 1.8.10)
+* git (version 2.2.1)
+* subversion (version 1.8.11)
 
 Also, there are some packages included, which are required by SLJM or GCFR!
 
@@ -52,12 +52,12 @@ The following packages are available for free download:
 * DBD-ODBC-1.50.tar.gz (https://metacpan.org/pod/DBD::ODBC)
 * DBI-1.631.tar.gz (https://metacpan.org/pod/DBI)
 * ExtUtils-MakeMaker-6.98.tar.gz (https://metacpan.org/pod/ExtUtils::MakeMaker)
-* git-2.1.2.tar.gz (https://www.kernel.org/pub/software/scm/git/)
+* git-2.2.1.tar.gz (https://www.kernel.org/pub/software/scm/git/)
 * openssl-1.0.1i.tar.gz (https://www.openssl.org/source/)
 * scons-local-2.3.3.tar.gz (http://www.scons.org/download.php)
 * serf-1.3.7.tar.bz2 (http://www.linuxfromscratch.org/blfs/view/svn/basicnet/serf.html)
 * sqlite-amalgamation-3080600.zip (http://www.sqlite.org/download.html)
-* subversion-1.8.10.tar.bz2 (https://subversion.apache.org/download/)
+* subversion-1.8.11.tar.bz2 (https://subversion.apache.org/download/)
 * Test-Simple-1.001006.tar.gz (http://search.cpan.org/dist/Test-Simple/lib/Test/Builder.pm)
 
 As of writing this readme, I've seen that many packages are outdated.

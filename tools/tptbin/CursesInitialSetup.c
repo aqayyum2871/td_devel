@@ -20,17 +20,14 @@
 #include <ctype.h>
 #include "CalcNumberColumns.h"
 #include "MyCurses.h"
+#include "quit.h"
 
-void CursesInitialSetup(struct windim *work) {
+void CursesInitialSetup(struct windim *work, WINDOW *headerwin, WINDOW *linenumwin, WINDOW *contentwin) {
 	int screenx, screeny;
 	unsigned int i;
 
-	WINDOW *headerwin;
-	WINDOW *linenumwin;
-	WINDOW *contentwin;
-
 	initscr();
-	atexit(quit);
+	atexit(quit(headerwin, linenumwin, contentwin));
 
 	start_color();
 	init_pair(1, COLOR_YELLOW, COLOR_BLUE);

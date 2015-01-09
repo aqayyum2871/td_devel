@@ -38,7 +38,7 @@ int main(int argc, char **argv) {
 
 	opterr = 0;
 
-	while ((c = getopt (argc, argv, "c:hi")) != -1) {
+	while ((c = getopt (argc, argv, ":c:hi")) != -1) {
 		switch (c) {
 			case 'c':
 				numcols = atoi(optarg);
@@ -50,10 +50,11 @@ int main(int argc, char **argv) {
 				printf("usage: %s [-c numcols] [-i] [-h] filename\n", argv[0]);
 				return(1);
 				break;
+			case ':':
+				fprintf (stderr, "Option -%c requires an argument.\n", optopt);
+				break;
 			case '?':
-				if (optopt == 'c')
-					fprintf (stderr, "Option -%c requires an argument.\n", optopt);
-				else if (isprint (optopt))
+				if (isprint (optopt))
 					fprintf (stderr, "Unknown option '-%c'.\n", optopt);
 				else
 					fprintf (stderr, "Unknown option character '\\x%x'.\n", optopt);
@@ -91,7 +92,7 @@ int main(int argc, char **argv) {
 
 	setlocale(LC_CTYPE, "");
 
-	CursesInitialSetup(&work);
+	CursesInitialSetup(&work, &headerwin, &linenumwin, &contentwin);
 
 	while (!feof(ptr_myfile)) {
 
@@ -111,7 +112,7 @@ int main(int argc, char **argv) {
 
 				// clear buffer before loading it again
 				for (i = 0; i < rowlen; i++) {
-					*p[i] = 0;
+					p[i] = 0;
 				}
 
 				// calculate here

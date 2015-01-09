@@ -12,9 +12,9 @@
 	to the copyright holder.
 */
 
-#ifndef CURSESINITIALSETUP_H
-#define CURSESINITIALSETUP_H
+#ifndef QUIT_H
+#define QUIT_H
 
-void CursesInitialSetup(struct windim *work, WINDOW *headerwin, WINDOW *linenumwin, WINDOW *contentwin);
+void quit(WINDOW *headerwin, WINDOW *linenumwin, WINDOW *contentwin);
 
 #endif

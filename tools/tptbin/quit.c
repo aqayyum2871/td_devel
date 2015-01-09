@@ -15,10 +15,9 @@
 #include <ncurses.h>
 #include "MyCurses.h"
 
-void quit() {
+void quit(WINDOW *headerwin, WINDOW *linenumwin, WINDOW *contentwin) {
 	delwin(headerwin);
 	delwin(linenumwin);
-	//delwin(contentwin);
+	delwin(contentwin);
 	endwin();
 }
-

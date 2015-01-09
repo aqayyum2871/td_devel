@@ -2,7 +2,7 @@ OBJ = tptbincheck.o CalcNumberColumns.o tptbinview.o tptbintestfile.o isBitSet.o
       isInt.o UniqSortIntArray.o tptbin2csv.o CursesInitialSetup.o
 EXE = tptbincheck tptbintestfile tptbinrc tptbin2csv
 
-all: $(EXE)
+all: $(OBJ) $(EXE)
 
 clean:
 	rm -f $(OBJ) $(EXE)

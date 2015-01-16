@@ -41,7 +41,7 @@ ON Processes_Target_Obj.Target_TableDatabaseName = DBName
 AND Processes_Target_Obj.Target_TableName = ObjName
 
 WHERE objts.tablekind IN ('V', 'T', 'O')
-AND objts.databasename IN ('<BASE_V>', '<INP_V>', '<OUT_V>', '<UTLFW_V>')
+AND objts.databasename IN ('<BASE_V>', '<BASE_T>', '<INP_V>', '<OUT_V>', '<UTLFW_V>')
 AND TRIM(objts.tablename) NOT LIKE ALL ('%Next_Id', '%Next_Id_Log', '%_Log')
 ;
 

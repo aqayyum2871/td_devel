@@ -9,10 +9,10 @@ SELECT
         WHEN objts.databasename = '<OUT_V>' THEN 'Out'
         WHEN objts.databasename = '<UTLFW_V>' THEN 'Utl'
      END) AS VARCHAR(5)) AS Layer_Name
-    ,COALESCE(Processes_In_Obj.count_Process_In, 0) AS Number_Objects_Used_as_Input
-    ,COALESCE(Processes_Out_Obj.count_Process_Out, 0) AS Number_Objects_Used_as_Output
-    ,COALESCE(Processes_Target_Obj.count_Process_Target, 0) AS Number_Objects_Used_as_Target
-    ,Number_Objects_Used_as_Input + Number_Objects_Used_as_Output + Number_Objects_Used_as_Target AS Used_at_all
+    ,COALESCE(Processes_In_Obj.count_Process_In, 0) AS Used_as_Input_Count
+    ,COALESCE(Processes_Out_Obj.count_Process_Out, 0) AS Used_as_Output_Count
+    ,COALESCE(Processes_Target_Obj.count_Process_Target, 0) AS Used_as_Target_Count
+    ,Used_as_Input_Count + Used_as_Output_Count + Used_as_Target_Count AS Used_at_all
 
 FROM dbc.tablesv AS objts
 
@@ -42,7 +42,7 @@ AND Processes_Target_Obj.Target_TableName = ObjName
 
 WHERE objts.tablekind IN ('V', 'T', 'O')
 AND objts.databasename IN ('<BASE_V>', '<BASE_T>', '<INP_V>', '<OUT_V>', '<UTLFW_V>')
-AND TRIM(objts.tablename) NOT LIKE ALL ('%Next_Id', '%Next_Id_Log', '%_Log')
+AND TRIM(objts.tablename) NOT LIKE ALL ('%Next_Id', '%Next_Id_Log', '%Log')
 ;
 
 comment on <GCFR_V>.Check_GCFR_Objects as 'Show objects in certain databases, if they are used in any GCFR_Process either as Input/Output or Target'

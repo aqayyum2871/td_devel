@@ -40,7 +40,7 @@ LEFT JOIN (
         FROM dbc.tablesv
         WHERE tablekind = 'V'
         AND databasename IN ('<INP_V>', '<UTLFW_V>', '<STG_V>', '<OI_V>')
-        AND tablename NOT LIKE ALL ('BKP%', 'DISS%', 'STAMM%', 'SAGA%')
+        AND tablename NOT LIKE ALL ('BKP%')
     ) AS INP_Views
 
 ON INP_Views.DBName = processes.In_DB_Name
@@ -51,7 +51,7 @@ LEFT JOIN (
         FROM dbc.tablesv
         WHERE tablekind = 'V'
         AND databasename IN ('<OUT_V>', '<UTLFW_V>', '<STG_V>', '<OI_V>')
-        AND tablename NOT LIKE ALL ('BKP%', 'DISS%', 'STAMM%', 'SAGA%')
+        AND tablename NOT LIKE ALL ('BKP%')
     ) AS OUT_Views
 
 ON OUT_Views.DBName = processes.Out_DB_Name
@@ -62,7 +62,7 @@ LEFT JOIN (
         FROM dbc.tablesv
         WHERE tablekind IN ('T', 'O')
         AND databasename IN ('<UTLFW_T>', '<UTLFW_V>', '<STG_V>', '<OI_V>')
-        AND tablename NOT LIKE ALL ('BKP%', 'DISS%', 'STAMM%', 'SAGA%')
+        AND tablename NOT LIKE ALL ('BKP%')
     ) AS Target_Tables
 
 ON Target_Tables.DBName = processes.Target_TableDatabaseName

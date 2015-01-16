@@ -1,3 +1,7 @@
+GCFR
+====
+Here are some views to help increase the quality and consistency of the development.
+
 cp_tab.pl
 =========
 Copy a table from one Teradata System to another using bteq/fastload.

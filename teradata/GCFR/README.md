@@ -1,3 +1,8 @@
+Here are some helpful views to enhance the quality of development with GCFR.
+
+You might need to adopt a bit. At least, database naming.
+
+
 Check_GCFR_Objects.ddl
 ======================
 Show objects in certain databases, if they are used in any GCFR_Process either as Input/Output or Target!

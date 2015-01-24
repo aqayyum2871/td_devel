@@ -1,6 +1,6 @@
 Here are some helpful views to enhance the quality of development with GCFR.
 
-You might need to adopt a bit. At least, database naming.
+You might need to adapt a bit. At least, database naming.
 
 
 Check_GCFR_Objects.ddl
@@ -17,13 +17,13 @@ Show target tables and show number of processes populating it!
 
 Check_Transform_KeyCol.ddl
 ==========================
-For all process_types of 23 and 24, count the number of columns.
+For all process_types of 23 and 24, count the number of key columns.
 If the count is 0, then this process will fail.
 
 Check_Transform_Process_Type.ddl
 ================================
-Compares the defined process type in GCFR_Process with the definition of the input view.
-Process type 23 does not allow to have the column "GCFR_Delta_Action_Code", whilst process type 24 requires this column to be runable.
+Compares the defined process_type in GCFR_Process with the definition of the input view.
+Process_type 23 does not allow to have the column "GCFR_Delta_Action_Code", whilst process_type 24 requires this column to be runable.
 
 Gen_GCFR_Comments.ddl
 =====================

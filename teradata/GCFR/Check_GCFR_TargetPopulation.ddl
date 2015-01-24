@@ -3,14 +3,18 @@ SELECT
     targets.DBName AS Target_Table_DB
     ,targets.TabName AS Target_Table_Name
     ,COALESCE(processes.count_population, 0) AS Number_GCFR_Processes
-FROM (
+
+FROM
+	(
         SELECT TRIM(databasename) AS DBName, TRIM(tablename) AS TabName
         FROM dbc.tablesv
         WHERE tablekind IN ('T', 'O')
         AND databasename IN ('<STG_T>', '<OI_T>', '<BASE_T>')
         AND tablename NOT LIKE ALL ('BKP%') -- exclude any known temporary objects
     ) AS targets
-LEFT JOIN (
+
+LEFT JOIN
+	(
         SELECT
             Target_TableDatabaseName, Target_TableName, COUNT(*) AS count_population
         FROM <GCFR_V>.gcfr_process

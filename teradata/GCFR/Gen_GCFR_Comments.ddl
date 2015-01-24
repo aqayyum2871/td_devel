@@ -22,15 +22,21 @@ SELECT CAST('comment on '||TRIM(t01.in_DB_Name)||'.'||TRIM(t01.in_Object_Name)||
      END
     )
     ||''';' AS VARCHAR(500)) AS SQL_Text
+
 FROM <GCFR_V>.gcfr_process AS t01
+
 LEFT JOIN <UTL_V>.BKEY_Domain AS Domain_BKEY
 ON t01.key_set_id = Domain_BKEY.key_set_id
 AND t01.domain_id = Domain_BKEY.domain_id
+
 LEFT JOIN <UTL_V>.BMAP_Domain AS Domain_BMAP
 ON t01.code_set_id = Domain_BMAP.code_set_id
 AND t01.domain_id = Domain_BMAP.domain_id
+
 WHERE t01.process_type IN (21,22,23,24,25)
+
 UNION ALL
+
 SELECT DISTINCT 'comment on '||TRIM(Out_DB_Name)||'.'||TRIM(Out_Object_Name)||' as '''||
     (CASE
         WHEN process_type = 21 THEN 'BKEY output view into '

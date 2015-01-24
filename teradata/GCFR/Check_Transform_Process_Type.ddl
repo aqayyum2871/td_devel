@@ -22,7 +22,8 @@ ON TRIM(proc.in_db_name) = TRIM(View_Exists.databasename)
 AND TRIM(proc.in_object_name) = TRIM(View_Exists.tablename)
 AND View_Exists.tablekind = 'V'
 
-LEFT JOIN (
+LEFT JOIN
+	(
         SELECT TRIM(databasename) AS db_name, TRIM(tablename) AS tab_name, TRIM(columnname) AS col_name
         FROM dbc.columnsv
         WHERE databasename = '<TXFM_INP_V>' -- select all databases where input views have been created
@@ -37,4 +38,5 @@ ON proc_types.process_type = proc.process_type
 WHERE proc.process_type IN (23,24)
 ;
 
-comment on view <GCFR_V>.Check_Transform_Process_Type is 'Compares process_type definition in <GCFR_V>.GCFR_Process with input TX view definition in <TXFM_INP_V> if process_types match';
+comment on view <GCFR_V>.Check_Transform_Process_Type is 'Compares process_type definition in <GCFR_V>.GCFR_Process with input TX view definition in <TXFM_INP_V> if process_types match'
+;

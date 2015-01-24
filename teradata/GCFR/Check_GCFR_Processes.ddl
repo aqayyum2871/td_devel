@@ -35,7 +35,8 @@ ON source_system.ctl_id = processes.ctl_id
 LEFT JOIN <GCFR_V>.gcfr_process_type AS process_type
 ON process_type.Process_Type = processes.Process_Type
 
-LEFT JOIN (
+LEFT JOIN
+	(
         SELECT TRIM(databasename) AS DBName, TRIM(tablename) AS TabName
         FROM dbc.tablesv
         WHERE tablekind = 'V'
@@ -46,7 +47,8 @@ LEFT JOIN (
 ON INP_Views.DBName = processes.In_DB_Name
 AND INP_Views.TabName = processes.In_Object_Name
 
-LEFT JOIN (
+LEFT JOIN
+	(
         SELECT TRIM(databasename) AS DBName, TRIM(tablename) AS TabName
         FROM dbc.tablesv
         WHERE tablekind = 'V'
@@ -57,7 +59,8 @@ LEFT JOIN (
 ON OUT_Views.DBName = processes.Out_DB_Name
 AND OUT_Views.TabName = processes.Out_Object_Name
 
-LEFT JOIN (
+LEFT JOIN
+	(
         SELECT TRIM(databasename) AS DBName, TRIM(tablename) AS TabName
         FROM dbc.tablesv
         WHERE tablekind IN ('T', 'O')

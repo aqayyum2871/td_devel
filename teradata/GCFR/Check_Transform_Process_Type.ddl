@@ -28,7 +28,7 @@ LEFT JOIN (
         JOIN dbc.tablesv AS t02
         ON t01.databasename = t02.databasename
         AND t01.tablename = t02.tablename
-        WHERE t01.databasename = '<TXFM_INP_V>'
+        WHERE t01.databasename = '<TXFM_INP_V>' -- select all databases where input views have been created
         AND t01.columnname = 'GCFR_Delta_Action_Code'
     ) AS Check_View
 ON proc.in_db_name = Check_View.db_name

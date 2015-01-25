@@ -2,6 +2,10 @@ certGithub.pem
 ==============
 A selection of root certificates.
 
+download.sh
+===========
+Downloads the mentioned versions from all free packages. Download of official SLES RPMs must still be done individually.
+
 install.sh
 ==========
 The main part. Download all packages with required versions into same folder as this script.

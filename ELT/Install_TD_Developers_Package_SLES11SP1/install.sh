@@ -26,14 +26,14 @@
 #   libncurses6-5.6-90.55.x86_64.rpm
 #   ncurses-devel-5.6-90.55.x86_64.rpm
 # Required Development applications (under /usr/local):
-#   openssl-1.0.1i.tar.gz
+#   openssl-1.0.2.tar.gz
 #   apr-1.5.1.tar.bz2
-#   apr-util-1.5.3.tar.bz2
+#   apr-util-1.5.4.tar.bz2
 #   scons-local-2.3.3.tar.gz (required only by serf-1.3.7.tar.bz2)
 #   serf-1.3.7.tar.bz2
 #   subversion-1.8.11.tar.bz2 (including sqlite-amalgamation-3080600.zip)
 #   curl-7.38.0.tar.bz2
-#   git-2.2.1.tar.gz
+#   git-2.2.2.tar.gz
 #
 ###############################################################################
 #
@@ -320,8 +320,8 @@ mkdir inst.${myinst}
 cd inst.${myinst}
 
 
-execute "openssl" "10.unpack" "tar zxvf ${mydir}/openssl-1.0.1i.tar.gz"
-cd openssl-1.0.1i
+execute "openssl" "10.unpack" "tar zxvf ${mydir}/openssl-1.0.2.tar.gz"
+cd openssl-1.0.2
 execute "openssl" "20.setown" "chown -R root:root ."
 execute "openssl" "30.configure" "./config -shared"
 execute "openssl" "40.compile" "make"
@@ -339,8 +339,8 @@ execute "apr" "50.install" "make install"
 cd ..
 
 
-execute "apr-util" "10.unpack" "tar jxvf ${mydir}/apr-util-1.5.3.tar.bz2"
-cd apr-util-1.5.3
+execute "apr-util" "10.unpack" "tar jxvf ${mydir}/apr-util-1.5.4.tar.bz2"
+cd apr-util-1.5.4
 execute "apr-util" "20.setown" "chown -R root:root ."
 execute "apr-util" "30.configure" "./configure --with-apr=/usr/local/apr"
 execute "apr-util" "40.compile" "make"
@@ -396,8 +396,8 @@ execute "curl" "50.install" "make install"
 cd ..
 
 
-execute "git" "10.unpack" "tar zxvf ${mydir}/git-2.2.1.tar.gz"
-cd git-2.2.1
+execute "git" "10.unpack" "tar zxvf ${mydir}/git-2.2.2.tar.gz"
+cd git-2.2.2
 execute "git" "20.setown" "chown -R root:root ."
 execute "git" "30.configure" "./configure --with-curl=/usr/local"
 execute "git" "40.compile" "make"

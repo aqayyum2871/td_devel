@@ -19,7 +19,7 @@
 #   perl-XML-Parser
 # Perl modules installed from source:
 #   ExtUtils-MakeMaker-6.98.tar.gz
-#   DBI-1.631.tar.gz
+#   DBI-1.633.tar.gz
 #   DBD-ODBC-1.50.tar.gz
 # Other packages from SUSE (if not present):
 #   tack-5.6-90.55.x86_64.rpm
@@ -29,10 +29,10 @@
 #   openssl-1.0.2.tar.gz
 #   apr-1.5.1.tar.bz2
 #   apr-util-1.5.4.tar.bz2
-#   scons-local-2.3.3.tar.gz (required only by serf-1.3.7.tar.bz2)
-#   serf-1.3.7.tar.bz2
+#   scons-local-2.3.4.tar.gz (required only by serf-1.3.8.tar.bz2)
+#   serf-1.3.8.tar.bz2
 #   subversion-1.8.11.tar.bz2 (including sqlite-amalgamation-3080600.zip)
-#   curl-7.38.0.tar.bz2
+#   curl-7.40.0.tar.bz2
 #   git-2.2.2.tar.gz
 #
 ###############################################################################
@@ -69,7 +69,7 @@ export LD_RUN_PATH=/usr/local/lib:/usr/local/ssl/lib
 
 REQUIRED_RPM_PERL_MODULES="libncurses6-5.6 perl-XML-NamespaceSupport perl-XML-SAX perl-XML-Simple perl-XML-Parser"
 UNINSTALL_RPM_PERL_MODULES="perl-DBI"
-REQUIRED_SRC_PERL_MODULES="ExtUtils-MakeMaker-6.98.tar.gz DBI-1.631.tar.gz DBD-ODBC-1.50.tar.gz"
+REQUIRED_SRC_PERL_MODULES="ExtUtils-MakeMaker-7.04.tar.gz DBI-1.633.tar.gz DBD-ODBC-1.50.tar.gz"
 
 
 #
@@ -290,9 +290,9 @@ function install_perl_modules {
         fi
     done
 
-    install_perl_module_from_src ExtUtils-MakeMaker-6.98.tar.gz >ExtUtils-MakeMaker-6.98.instlog
-    install_perl_module_from_src Test-Simple-1.001006.tar.gz >Test-Simple-1.001006.instlog
-    install_perl_module_from_src DBI-1.631.tar.gz >DBI-1.631.instlog
+    install_perl_module_from_src ExtUtils-MakeMaker-7.04.tar.gz >ExtUtils-MakeMaker-7.04.instlog
+    install_perl_module_from_src Test-Simple-1.001014.tar.gz >Test-Simple-1.001014.instlog
+    install_perl_module_from_src DBI-1.633.tar.gz >DBI-1.633.instlog
     install_perl_module_from_src DBD-ODBC-1.50.tar.gz "-o ${INST_ODBC_PATH}" >DBD-ODBC-1.50.instlog
 
     # Changing permissions because somehow, the installation folders don't have proper world permissions.
@@ -350,7 +350,7 @@ cd ..
 
 execute "scons" "01.mkdir" "mkdir scons"
 cd scons
-execute "scons" "10.unpack" "tar zxvf ${mydir}/scons-local-2.3.3.tar.gz"
+execute "scons" "10.unpack" "tar zxvf ${mydir}/scons-local-2.3.4.tar.gz"
 execute "scons" "20.setown" "chown -R root:root ."
 if [ ! -d ${HOME}/bin ]
 then
@@ -366,8 +366,8 @@ execute "scons" "12.create_ln" "ln -s ${scons_pwd}/scons.py scons"
 cd ${mydir}/inst.${myinst}
 
 
-execute "serf" "10.unpack" "tar jxvf ${mydir}/serf-1.3.7.tar.bz2"
-cd serf-1.3.7
+execute "serf" "10.unpack" "tar jxvf ${mydir}/serf-1.3.8.tar.bz2"
+cd serf-1.3.8
 execute "serf" "20.setown" "chown -R root:root ."
 execute "serf" "40.compile" "scons APR=/usr/local/apr/ APU=/usr/local/apr OPENSSL=/usr/local/ssl"
 execute "serf" "50.install" "scons install"
@@ -385,8 +385,8 @@ execute "subversion" "50.install" "make install"
 cd ..
 
 
-execute "curl" "10.unpack" "tar jxvf ${mydir}/curl-7.38.0.tar.bz2"
-cd curl-7.38.0
+execute "curl" "10.unpack" "tar jxvf ${mydir}/curl-7.40.0.tar.bz2"
+cd curl-7.40.0
 execute "curl" "20.setown" "chown -R root:root ."
 execute "curl" "21.copycert" "cp -p ${mydir}/certGithub.pem /usr/local/ssl/certs"
 #execute "curl" "30.configure" "./configure --with-ssl=/usr/local/ssl --with-http --with-ftp --with-telnet"

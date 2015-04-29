@@ -10,6 +10,8 @@ Show objects in certain databases, if they are used in any GCFR_Process either a
 Check_GCFR_Processes.ddl
 ========================
 Show GCFR processes an look if Input/Output or Target object exists or not!
+Check columns of Input and Output Objects and Target Table if they match.
+Check GCFR_Transform_KeyCol if there is at least one column and if it is in Target Table as well.
 
 Check_GCFR_TargetPopulation.ddl
 ===============================

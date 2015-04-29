@@ -23,7 +23,7 @@ AND TRIM(proc.in_object_name) = TRIM(View_Exists.tablename)
 AND View_Exists.tablekind = 'V'
 
 LEFT JOIN
-	(
+    (
         SELECT TRIM(databasename) AS db_name, TRIM(tablename) AS tab_name, TRIM(columnname) AS col_name
         FROM dbc.columnsv
         WHERE databasename = '<TXFM_INP_V>' -- select all databases where input views have been created

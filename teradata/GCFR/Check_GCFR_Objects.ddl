@@ -17,7 +17,7 @@ SELECT
 FROM dbc.tablesv AS objts
 
 LEFT JOIN
-	(
+    (
         SELECT trim(In_DB_Name) as In_DB_Name, trim(In_Object_Name) as In_Object_Name, COUNT(*) AS count_Process_In
         FROM <GCFR_V>.gcfr_process
         GROUP BY 1,2
@@ -26,7 +26,7 @@ ON Processes_In_Obj.In_DB_Name = DBName
 AND Processes_In_Obj.In_Object_Name = ObjName
 
 LEFT JOIN
-	(
+    (
         SELECT trim(Out_DB_Name) as Out_DB_Name, trim(Out_Object_Name) as Out_Object_Name, COUNT(*) AS count_Process_Out
         FROM <GCFR_V>.gcfr_process
         GROUP BY 1,2
@@ -35,7 +35,7 @@ ON Processes_Out_Obj.Out_DB_Name = DBName
 AND Processes_Out_Obj.Out_Object_Name = ObjName
 
 LEFT JOIN
-	(
+    (
         SELECT trim(Target_TableDatabaseName) as Target_TableDatabaseName, trim(Target_TableName) as Target_TableName, COUNT(*) AS count_Process_Target
         FROM <GCFR_V>.gcfr_process
         GROUP BY 1,2

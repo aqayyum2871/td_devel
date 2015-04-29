@@ -5,7 +5,7 @@ SELECT
     ,COALESCE(processes.count_population, 0) AS Number_GCFR_Processes
 
 FROM
-	(
+    (
         SELECT TRIM(databasename) AS DBName, TRIM(tablename) AS TabName
         FROM dbc.tablesv
         WHERE tablekind IN ('T', 'O')
@@ -14,7 +14,7 @@ FROM
     ) AS targets
 
 LEFT JOIN
-	(
+    (
         SELECT
             Target_TableDatabaseName, Target_TableName, COUNT(*) AS count_population
         FROM <GCFR_V>.gcfr_process

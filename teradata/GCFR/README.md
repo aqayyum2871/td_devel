@@ -19,6 +19,7 @@ Show GCFR processes with information to identify errors in advance, which will l
 * Check if Target Table has columns start_ts and end_ts if Stream is Intraday.
 
 Important column description:
+
 Column Name | Description
 ----------- | -----------
 INP_Object_Found | Y=The Input Object has been found, N=The Input Object has not been found

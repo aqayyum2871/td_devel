@@ -17,7 +17,7 @@ Show GCFR processes with information to identify errors in advance, which will l
 * Check if Input Object has column GCFR_Delta_Action_Code if Process_Type 24 or 25.
 * Check if Target Table has columns start_ts and end_ts if Stream is Intraday.
 
-Order by column TCE_Sum to quickly find the issues. The higher that number, the high the number of issues. Zero is perfect. :)
+Order by column Sum_TCE to quickly find the issues. The higher that number, the high the number of issues. Zero is perfect. :)
 
 Check_GCFR_TargetPopulation.ddl
 ===============================

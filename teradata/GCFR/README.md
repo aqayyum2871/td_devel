@@ -9,9 +9,13 @@ Show objects in certain databases, if they are used in any GCFR_Process either a
 
 Check_GCFR_Processes.ddl
 ========================
-Show GCFR processes an look if Input/Output or Target object exists or not!
-Check columns of Input and Output Objects and Target Table if they match.
-Check GCFR_Transform_KeyCol if there is at least one column and if it is in Target Table as well.
+Show GCFR processes with information to identify errors in advance, which will lead to an abort in running that process:
+* Look if Input/Output or Target object exists or not.
+* Check data columns of Input and Output Objects and Target Table if they match.
+* Check if missing column in Input Object is defined as NOT NULL with no default value in Target Table.
+* Check if Output Object has keys defined in GCFR_Transform_KeyCol if Process_Type 23, 24 or 25 and if they exist in Target Table.
+* Check if Input Object has column GCFR_Delta_Action_Code if Process_Type 24 or 25.
+* Check if Target Table has columns start_ts and end_ts if Stream is Intraday.
 
 Check_GCFR_TargetPopulation.ddl
 ===============================

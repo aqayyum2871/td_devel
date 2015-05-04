@@ -22,19 +22,19 @@ Important column description:
 
 Column Name | Description
 ----------- | -----------
-INP_Object_Found | Y=The Input Object has been found, N=The Input Object has not been found
-OUT_Object_Found | Y=The Output Object has been found, N=The Output Object has not been found
-Target_Table_Found | Y=The Target Table has been found, N=The Target Table has not been found
-Num_INP_Object_Columns | Number of Data Columns in Input Object
-Num_OUT_Object_Columns | Number of Data Columns in Output Object
-Num_Target_Table_Columns | Number of Data Columns in Target Table
-TCE_OUT_Target_Diff | Transform Column Error: the columnames between Output Object and Target Table do not match
-TCE_INP_OUT_Diff | Transform Column Error: the columnames between Input and Output Objects do not match
-TCE_in_Target | Transform Column Error: target column is defined as not null and has no default value and is missing in Input/Output Object. Or column exists in Input/Output Object but not in Target Table
-TCE_in_Transform_KeyCol | Transform Column Error: no Columns defined as Key in GCFR_Transform_KeyCol or defined Key does not exist as column in Target Table
-TCE_in_Process_Type | Transform Column Error: Process_Type is defined as delta, but missing column GCFR_Delta_Action_Code or vice versa
-TCE_in_Tech_Columns | Transform Column Error: Too few GCFR technical columns depending on Stream-Cycle-Frequency-Code
-Sum_TCE | Summarize all TCE* columns to show errors (easy to order in result set), a number greater then zero will very likely cause an abort in the GCFR process
+INP_Object_Found | Y=The Input Object has been found, N=The Input Object has not been found.
+OUT_Object_Found | Y=The Output Object has been found, N=The Output Object has not been found.
+Target_Table_Found | Y=The Target Table has been found, N=The Target Table has not been found.
+Num_INP_Object_Columns | Number of Data Columns in Input Object.
+Num_OUT_Object_Columns | Number of Data Columns in Output Object.
+Num_Target_Table_Columns | Number of Data Columns in Target Table.
+TCE_OUT_Target_Diff | Transform Column Error: the Column Names between Output Object and Target Table do not match.
+TCE_INP_OUT_Diff | Transform Column Error: the Column Names between Input and Output Objects do not match.
+TCE_in_Target | Transform Column Error: Target Column is defined as NOT NULL and has no default value and is missing in Input/Output Object. Or column exists in Input/Output Object but not in Target Table.
+TCE_in_Transform_KeyCol | Transform Column Error: no columns defined as Key in GCFR_Transform_KeyCol or defined Key does not exist as Column(s) in Target Table.
+TCE_in_Process_Type | Transform Column Error: Process_Type is defined as "Delta", but Column GCFR_Delta_Action_Code is missing in Input Object or Process_Type is defined as "Full" and Column GCFR_Delta_Action_Code exists in Input Object.
+TCE_in_Tech_Columns | Transform Column Error: Too few GCFR Technical Columns depending on Stream-Cycle-Frequency-Code (at least 8 for Daily or longer, 10 for IntraDay).
+Sum_TCE | Summarize all TCE* columns to show errors (easy to order in result set), a number greater then zero will very likely cause an abort in the GCFR process.
 
 Check_GCFR_TargetPopulation.ddl
 ===============================

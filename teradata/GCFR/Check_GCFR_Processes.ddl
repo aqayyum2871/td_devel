@@ -43,8 +43,8 @@ SELECT
         ELSE 0
      END AS TCE_in_Process_Type
     ,CASE
-        WHEN Streams.Cycle_Freq_Code = 0 AND Column_Errors.Num_tech_col_type1 < 10 THEN 1
-        WHEN Streams.Cycle_Freq_Code > 0 AND Column_Errors.Num_tech_col_type1 < 8 THEN 1
+        WHEN Streams.Cycle_Freq_Code = 0 AND Column_Errors.Num_tech_col_type1 < 10 AND processes.process_type IN (23, 24, 25) THEN 1
+        WHEN Streams.Cycle_Freq_Code > 0 AND Column_Errors.Num_tech_col_type1 < 8 AND processes.process_type IN (23, 24, 25) THEN 1
         ELSE 0
      END AS TCE_in_Tech_Columns
     ,Column_Errors.TCE_OUT_Target_Diff + Column_Errors.TCE_INP_OUT_Diff + Column_Errors.TCE_in_Target + TCE_in_Transform_KeyCol + TCE_in_Process_Type + TCE_in_Tech_Columns AS Sum_TCE

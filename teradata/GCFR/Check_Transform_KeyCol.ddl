@@ -23,7 +23,7 @@ LEFT JOIN
 ON t03.out_db_name = t01.out_db_name
 AND t03.out_object_name = t01.out_object_name
 
-WHERE t01.process_type IN (23,24)
+WHERE t01.process_type IN (23,24,25)
 ;
 
 comment on view <GCFR_V>.Check_Transform_KeyCol is 'Check if all Transform processes have Key-Columns defined'

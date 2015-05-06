@@ -65,3 +65,14 @@ After ordering the output by column "Absolute_Order", the execution sequence for
 The output for one Stream can build the complete job file for SLJM. Therefore, the steps for one target table are set to run sequentially,
 while different target tables to run in parallel (if they don't have any dependencies). Use the variable SLJMPROCLIMIT to limit the parallel
 running processes per job.
+
+SP_Compress_Process_Name.ddl
+============================
+With Teradata 14.10 or newer, a MVC definition can be added on non-empty tables via "ALTER TABLE" command. This procedure
+* takes an input parameter of the database where to add a multi value compress definition to columns PROCESS_NAME and UPDATE_PROCESS_NAME
+* uses the Process Names from GCFR_Process table to generate a string of values
+* executes the alter table command, so create and drop table privileges are required on certain databases by the owning database
+* also handles the IMG- and INS- tables created by GCFR (the input parameter for database must be the temporary database)
+* picks up all tables in the selected database with columns PROCESS_NAME **and** UPDATE_PROCESS_NAME
+
+Result is a command like: {code}ALTER TABLE DB_XY.TABLE_YZ add process_name compress ('A', 'B', 'C'), add update_process_name compress ('A', 'B', 'C');{code}

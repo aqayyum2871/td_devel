@@ -75,4 +75,4 @@ With Teradata 14.10 or newer, a MVC definition can be added on non-empty tables 
 * also handles the IMG- and INS- tables created by GCFR (the input parameter for database must be the temporary database)
 * picks up all tables in the selected database with columns PROCESS_NAME **and** UPDATE_PROCESS_NAME
 
-Result is a command like: {code}ALTER TABLE DB_XY.TABLE_YZ add process_name compress ('A', 'B', 'C'), add update_process_name compress ('A', 'B', 'C');{code}
+Result is a command like: ```ALTER TABLE DB_XY.TABLE_YZ add process_name compress ('A', 'B', 'C'), add update_process_name compress ('A', 'B', 'C');```
